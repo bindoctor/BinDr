@@ -2,11 +2,11 @@
   "name": "bindr",
   "version": "1.0.0",
   "description": "Find your nearest recycling bin",
-  "main": "index.js",
+  "main": "server.js",
   "scripts": {
-    "test": "jest --coverage --verbose ./tests",
+    "test": "jest --coverage --verbose ./tests --detectOpenHandles",
     "lint": "eslint .",
-    "start": "node index.js"
+    "start": "node server.js"
   },
   "repository": {
     "type": "git",
@@ -30,5 +30,22 @@
     "eslint-config-google": "^0.13.0",
     "jest": "^24.8.0",
     "supertest": "^4.0.2"
+  },
+  "jest": {
+    "collectCoverageFrom": [
+      "*.js"
+    ],
+    "coveragePathIgnorePatterns": [
+      "/node_modules/",
+      "server.js"
+    ],
+    "coverageThreshold": {
+      "global": {
+        "statements": 90,
+        "branches": 90,
+        "functions": 90,
+        "lines": 90
+      }
+    }
   }
 }
