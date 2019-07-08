@@ -1,0 +1,33 @@
+{
+  "name": "bindr",
+  "version": "1.0.0",
+  "description": "Find your nearest recycling bin",
+  "main": "index.js",
+  "scripts": {
+    "test": "jest",
+    "lint": "eslint .",
+    "start": "node index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/bindoctor/BinDr.git"
+  },
+  "keywords": [
+    "bins",
+    "recycling"
+  ],
+  "author": "bin-doctor",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/bindoctor/BinDr/issues"
+  },
+  "homepage": "https://github.com/bindoctor/BinDr#readme",
+  "dependencies": {
+    "express": "^4.17.1"
+  },
+  "devDependencies": {
+    "eslint": "^6.0.1",
+    "eslint-config-google": "^0.13.0",
+    "jest": "^24.8.0"
+  }
+}
