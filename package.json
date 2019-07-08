@@ -4,7 +4,7 @@
   "description": "Find your nearest recycling bin",
   "main": "index.js",
   "scripts": {
-    "test": "jest",
+    "test": "jest --coverage --verbose ./tests",
     "lint": "eslint .",
     "start": "node index.js"
   },
@@ -28,6 +28,7 @@
   "devDependencies": {
     "eslint": "^6.0.1",
     "eslint-config-google": "^0.13.0",
-    "jest": "^24.8.0"
+    "jest": "^24.8.0",
+    "supertest": "^4.0.2"
   }
 }
