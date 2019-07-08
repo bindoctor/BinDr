@@ -1,6 +1,4 @@
-![Image of BinDr](LogoDesigns/logo.png)
-
-
+![Image of BinDr](LogoDesigns/pinterest_profile_image.png)
 # BinDr
 Find your nearest recycling bin
 
