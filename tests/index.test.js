@@ -7,3 +7,9 @@ describe('main page loads', () => {
     api.get('/').expect(200);
   });
 });
+
+describe('about page loads', () => {
+  test('shows about page', () => {
+    api.get('/about').expect(200);
+  });
+});
