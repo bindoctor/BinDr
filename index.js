@@ -5,6 +5,8 @@ app.get('/', (request, response) => {
   response.send('Hello');
 })
 
-app.listen(3000, () => console.log(`Your app is listening on port 3000`))
+const port = 3000
+
+app.listen(port, () => console.log(`Your rubbish app is listening on port ${port} 🗑 `))
 
 module.exports = {app};
