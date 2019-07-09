@@ -15,6 +15,11 @@ app.get('/', (request, response) => {
 app.get('/about', (request, response) => {
   response.render('about')
 })
+<<<<<<< HEAD
+
+app.use(express.static('public'))
+=======
+>>>>>>> 9e6bf600042b2f7fc93dbcf060dd10807e4bc685
 
 app.get('/api/sample-bins', (request, response) => {
   const binJson = {
