@@ -1,4 +1,4 @@
-const mongoose = require('mongoose')
+const mongoose = require('mongoose');
 
 const binSchema = new mongoose.Schema({
   type: {
@@ -20,6 +20,6 @@ const binSchema = new mongoose.Schema({
       required: true
     }
   }
-})
+});
 
 module.exports = mongoose.model('bin', binSchema);

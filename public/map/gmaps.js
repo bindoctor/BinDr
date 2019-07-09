@@ -4,6 +4,7 @@
 // locate you.
 var map, infoWindow;
 var im = 'http://www.robotwoods.com/dev/misc/bluecircle.png';
+
 function initMap() {
   map = new google.maps.Map(document.getElementById('map'), {
     center: {lat: 51.524511, lng: -0.099124},
@@ -14,7 +15,7 @@ function initMap() {
 
   // Try HTML5 geolocation.
   if (navigator.geolocation) {
-    navigator.geolocation.getCurrentPosition(function(position) {
+    navigator.geolocation.getCurrentPosition(function (position) {
       var pos = {
         lat: position.coords.latitude,
         lng: position.coords.longitude
@@ -31,7 +32,7 @@ function initMap() {
       infoWindow.setContent('Smelly bin');
       infoWindow.open(map);
       map.setCenter(pos);
-    }, function() {
+    }, function () {
       handleLocationError(true, infoWindow, map.getCenter());
     });
   } else {
@@ -43,7 +44,7 @@ function initMap() {
 function handleLocationError(browserHasGeolocation, infoWindow, pos) {
   infoWindow.setPosition(pos);
   infoWindow.setContent(browserHasGeolocation ?
-                        'Error: The Geolocation service failed.' :
-                        'Error: Your browser doesn\'t support geolocation.');
+    'Error: The Geolocation service failed.' :
+    'Error: Your browser doesn\'t support geolocation.');
   infoWindow.open(map);
 }

@@ -1,25 +1,23 @@
-const express = require('express')
-const expressHandlebars = require('express-handlebars')
-const app = express()
-const sampleData = require('./sampleData')
-const bin = require('./models/bin')
+const express = require('express');
+const expressHandlebars = require('express-handlebars');
+const app = express();
+const sampleData = require('./sampleData');
+const bin = require('./models/bin');
 
-app.engine('handlebars', expressHandlebars({defaultLayout: 'main'}))
-app.set('view engine', 'handlebars')
+app.engine('handlebars', expressHandlebars({defaultLayout: 'main'}));
+app.set('view engine', 'handlebars');
 
 
 app.get('/', (request, response) => {
-  response.render('home')
-})
+  response.render('home');
+});
 
 app.get('/about', (request, response) => {
-  response.render('about')
-})
-<<<<<<< HEAD
+  response.render('about');
+});
 
-app.use(express.static('public'))
-=======
->>>>>>> 9e6bf600042b2f7fc93dbcf060dd10807e4bc685
+
+app.use(express.static('public'));
 
 app.get('/api/sample-bins', (request, response) => {
   const binJson = {
@@ -32,11 +30,11 @@ app.get('/api/sample-bins', (request, response) => {
         51.52560021903987,
       ],
     },
-  }
+  };
 
-  const newBin = new bin(binJson)
-  newBin.save()
-  response.json(sampleData)
-})
+  const newBin = new bin(binJson);
+  newBin.save();
+  response.json(sampleData);
+});
 
-module.exports = app
+module.exports = app;
