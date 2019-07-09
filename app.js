@@ -16,7 +16,9 @@ app.engine('handlebars', expressHandlebars({
 
 app.set('view engine', 'handlebars');
 
-app.use(morgan('dev'));
+if (app.get('env') !== 'test') {
+  app.use(morgan('dev'));
+}
 
 app.get('/', (request, response) => {
   response.render('home');
