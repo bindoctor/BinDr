@@ -2,7 +2,7 @@ const express = require('express');
 const expressHandlebars = require('express-handlebars');
 const app = express();
 const sampleData = require('./sampleData');
-const bin = require('./models/bin');
+const Bin = require('./models/bin');
 
 app.engine('handlebars', expressHandlebars({defaultLayout: 'main'}));
 app.set('view engine', 'handlebars');
@@ -31,7 +31,7 @@ app.get('/api/sample-bins', (request, response) => {
     },
   };
 
-  const newBin = new bin(binJson);
+  const newBin = new Bin(binJson);
   newBin.save();
   response.json(sampleData);
 });
