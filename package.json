@@ -4,7 +4,7 @@
   "description": "Find your nearest recycling bin",
   "main": "server.js",
   "scripts": {
-    "test": "jest --coverage --verbose ./tests --detectOpenHandles",
+    "test": "jest --coverage --verbose ./tests --detectOpenHandles --runInBand",
     "lint": "eslint .",
     "dev": "nodemon index.js",
     "start": "node server.js"
