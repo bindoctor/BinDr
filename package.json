@@ -38,6 +38,7 @@
     "supertest": "^4.0.2"
   },
   "jest": {
+    "testEnvironment": "node",
     "collectCoverageFrom": [
       "*.js"
     ],
