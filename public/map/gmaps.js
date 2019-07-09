@@ -3,6 +3,7 @@
 // failed.", it means you probably did not give permission for the browser to
 // locate you.
 var map, infoWindow;
+var im = 'http://www.robotwoods.com/dev/misc/bluecircle.png';
 function initMap() {
   map = new google.maps.Map(document.getElementById('map'), {
     center: {lat: 51.524511, lng: -0.099124},
@@ -18,6 +19,13 @@ function initMap() {
         lat: position.coords.latitude,
         lng: position.coords.longitude
       };
+      var userMarker = new google.maps.Marker({
+        position: pos,
+        map: map,
+        icon: im,
+        title: 'Hello I live here!',
+        animation: google.maps.Animation.BOUNCE
+      });
 
       infoWindow.setPosition({lat: 51.523690, lng: -0.098834});
       infoWindow.setContent('Smelly bin');
