@@ -6,7 +6,7 @@
   "scripts": {
     "test": "jest --coverage --verbose ./tests --detectOpenHandles --runInBand",
     "lint": "eslint .",
-    "dev": "nodemon index.js",
+    "dev": "nodemon server.js",
     "start": "node server.js"
   },
   "repository": {

@@ -6,7 +6,7 @@ const api = request(app);
 afterAll(async () => {
   await new Promise((resolve) => setTimeout(() => {
     resolve();
-  }, 500)); // avoid jest open handle error
+  }, 500)); // avoid jest open handle error with jest and supertest
 });
 
 describe('main page loads', () => {
