@@ -7,5 +7,5 @@ const mongoose = require('mongoose');
 
 mongoose.connect(process.env.MONGODB_URI,  { useNewUrlParser: true });
 
-app.listen(PORT, () => console.log(`Your app is listening on port ${PORT}`));
+app.listen(PORT, () => console.log(`Your app is listening on port ${PORT}\nView it's awesomeness here: http://localhost:${PORT}`));
 
