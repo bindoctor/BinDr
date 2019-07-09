@@ -1,0 +1,18 @@
+/* body {
+  overflow: hidden;
+} */
+
+
+/* Always set the map height explicitly to define the size of the div
+  * element that contains the map. */
+  #map {
+    height: 90vh;
+  }
+
+  .navbar {
+    height: 10vh;
+  }
+  
+.container-fluid {
+    padding: 0;
+  }

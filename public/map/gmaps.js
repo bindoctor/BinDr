@@ -7,7 +7,9 @@ var im = 'http://www.robotwoods.com/dev/misc/bluecircle.png';
 function initMap() {
   map = new google.maps.Map(document.getElementById('map'), {
     center: {lat: 51.524511, lng: -0.099124},
-    zoom: 18
+    zoom: 18,
+    gestureHandling: 'greedy',
+    disableDefaultUI: true,
   });
 
   infoWindow = new google.maps.InfoWindow;
