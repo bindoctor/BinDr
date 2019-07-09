@@ -14,8 +14,4 @@ app.get('/about', (request, response) => {
   response.render('about');
 });
 
-const port = 3000;
-
-app.listen(port, () => console.log(`Your rubbish app is listening on port ${port} 🗑 `));
-
-module.exports = {app};
+module.exports = app;
