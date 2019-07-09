@@ -16,7 +16,6 @@ app.get('/about', (request, response) => {
   response.render('about');
 });
 
-
 app.use(express.static('public'));
 
 app.get('/api/sample-bins', (request, response) => {
