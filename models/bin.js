@@ -5,7 +5,7 @@ const binSchema = new mongoose.Schema({
     type: String,
     enum: ['Feature'],
     required: true,
-    default: 'Feature'
+    default: 'Feature',
   },
   properties: {},
   geometry: {
@@ -13,13 +13,13 @@ const binSchema = new mongoose.Schema({
       type: String,
       enum: ['Point'],
       required: true,
-      default: 'Point'
+      default: 'Point',
     },
     coordinates: {
       type: [Number],
-      required: true
-    }
-  }
+      required: true,
+    },
+  },
 });
 
-module.exports = mongoose.model('bin', binSchema);
+module.exports = mongoose.model('Bin', binSchema);
