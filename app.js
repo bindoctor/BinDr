@@ -1,6 +1,7 @@
 const express = require('express');
 const expressHandlebars = require('express-handlebars');
 const app = express();
+const morgan = require('morgan');
 const sampleData = require('./sampleData');
 const Bin = require('./models/bin');
 
@@ -14,6 +15,8 @@ app.engine('handlebars', expressHandlebars({
 }));
 
 app.set('view engine', 'handlebars');
+
+app.use(morgan('dev'));
 
 app.get('/', (request, response) => {
   response.render('home');
