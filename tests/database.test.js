@@ -35,7 +35,7 @@ describe('One entry in Database', () => {
     };
     const newBin = new Bin(binJson);
     await newBin.save();
-    const count = await Bin.count();
+    const count = await Bin.countDocuments();
     expect(count).toEqual(1);
   });
 });
