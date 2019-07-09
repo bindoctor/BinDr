@@ -4,9 +4,16 @@ const app = express();
 const sampleData = require('./sampleData');
 const Bin = require('./models/bin');
 
-app.engine('handlebars', expressHandlebars({defaultLayout: 'main'}));
-app.set('view engine', 'handlebars');
+app.engine('handlebars', expressHandlebars({
+  defaultLayout: 'main',
+  helpers: {
+    googleKey: function () {
+      return process.env.GOOGLE_KEY;
+    }
+  }
+}));
 
+app.set('view engine', 'handlebars');
 
 app.get('/', (request, response) => {
   response.render('home');
