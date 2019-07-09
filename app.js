@@ -1,7 +1,8 @@
 const express = require('express');
 const expressHandlebars = require('express-handlebars');
 const app = express();
-const sampleData = require('./sampleData')
+const sampleData = require('./sampleData');
+const bin = require('./models/bin');
 
 app.engine('handlebars', expressHandlebars({defaultLayout: 'main'}));
 app.set('view engine', 'handlebars');
@@ -15,10 +16,24 @@ app.get('/about', (request, response) => {
   response.render('about');
 });
 
-app.use(express.static('public'))
+app.use(express.static('public'));
 
 app.get('/api/sample-bins', (request, response) => {
-  response.json(sampleData)
+  const binJson = {
+    type: 'Feature',
+    properties: {},
+    geometry: {
+      type: 'Point',
+      coordinates: [
+        -0.0996708869934082,
+        51.52560021903987,
+      ],
+    },
+  };
+
+  const newBin = new bin(binJson);
+  newBin.save();
+  response.json(sampleData);
 });
 
 module.exports = app;
