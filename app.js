@@ -1,6 +1,7 @@
 const express = require('express');
 const expressHandlebars = require('express-handlebars');
 const app = express();
+const sampleData = require('./sampleData')
 
 app.engine('handlebars', expressHandlebars({defaultLayout: 'main'}));
 app.set('view engine', 'handlebars');
@@ -15,5 +16,9 @@ app.get('/about', (request, response) => {
 });
 
 app.use(express.static('public'))
+
+app.get('/api/sample-bins', (request, response) => {
+  response.json(sampleData)
+});
 
 module.exports = app;
