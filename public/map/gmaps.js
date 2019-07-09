@@ -186,6 +186,8 @@ function initMap() {
     // Browser doesn't support Geolocation
     handleLocationError(false, infoWindow, map.getCenter());
   }
+  map.data.loadGeoJson('/api/sample-bins');
+
 }
 
 function handleLocationError(browserHasGeolocation, infoWindow, pos) {
