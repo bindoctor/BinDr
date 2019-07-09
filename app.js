@@ -18,5 +18,6 @@ app.get('/about', (request, response) => {
 app.get('/api/sample-bins', (request, response) => {
   response.json(sampleData)
 });
+app.use(express.static('public'))
 
 module.exports = app;
