@@ -14,4 +14,6 @@ app.get('/about', (request, response) => {
   response.render('about');
 });
 
+app.use(express.static('public'))
+
 module.exports = app;
