@@ -30,3 +30,14 @@ describe('/api/sample-bins', () => {
     expect(GJV.valid(response.body)).toBe(true);
   });
 });
+
+describe('/api/bins', () => {
+  test('shows /api/bins page', () => {
+    return api.get('/api/sample-bins').expect(200);
+  });
+  test('shows /api/sample-bins page', async () => {
+    const response = await api.get('/api/sample-bins');
+    expect(GJV.valid(response.body)).toBe(true);
+  });
+});
+

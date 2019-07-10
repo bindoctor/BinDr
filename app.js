@@ -26,20 +26,7 @@ app.get('/about', (request, response) => {
 app.use(express.static('public'));
 
 app.get('/api/sample-bins', (request, response) => {
-  const binJson = {
-    type: 'Feature',
-    properties: {},
-    geometry: {
-      type: 'Point',
-      coordinates: [
-        -0.0996708869934082,
-        51.52560021903987,
-      ],
-    },
-  };
 
-  const newBin = new Bin(binJson);
-  newBin.save();
   response.json(sampleData);
 });
 
