@@ -200,7 +200,7 @@ function initMap() {
 
   map.data.setStyle({icon: icons.mixed.icon});
 
-  map.data.loadGeoJson('/api/sample-bins');
+  map.data.loadGeoJson('/api/bins');
 
 }
 

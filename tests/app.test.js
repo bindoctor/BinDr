@@ -2,11 +2,17 @@ const app = require('../app');
 const GJV = require('geojson-validation');
 const request = require('supertest');
 const api = request(app);
+const mongoose = require('mongoose');
+
+beforeAll(async () => {
+  connection = mongoose.connect(process.env.MONGODB_URI,  { useNewUrlParser: true });
+});
 
 afterAll(async () => {
   await new Promise((resolve) => setTimeout(() => {
     resolve();
   }, 500)); // avoid jest open handle error with jest and supertest
+  await mongoose.disconnect()
 });
 
 describe('main page loads', () => {
@@ -36,8 +42,19 @@ describe('/api/sample-bins', () => {
   test('shows /api/sample-bins page', () => {
     return api.get('/api/sample-bins').expect(200);
   });
-  test('shows /api/sample-bins page', async () => {
+  test('check /api/sample-bins give valid geoJSON', async () => {
     const response = await api.get('/api/sample-bins');
     expect(GJV.valid(response.body)).toBe(true);
   });
 });
+
+describe('/api/bins', () => {
+  test('shows /api/bins page', () => {
+    return api.get('/api/bins').expect(200);
+  });
+  test('check /api/bins gives invalid geoJSON', async () => {
+    const response = await api.get('/api/bins');
+    expect(GJV.valid(response.body)).toBe(false);  // fix this test to be true when refactoring 
+  });
+});
+
