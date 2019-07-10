@@ -3,6 +3,7 @@ const GJV = require('geojson-validation');
 const request = require('supertest');
 const api = request(app);
 
+
 afterAll(async () => {
   await new Promise((resolve) => setTimeout(() => {
     resolve();
@@ -45,6 +46,10 @@ describe('/api/sample-bins', () => {
 describe('/api/bins', () => {
   test('shows /api/bins page', () => {
     return api.get('/api/bins').expect(200);
+  });
+  test('shows /api/bins page', async () => {
+    const response = await api.get('/api/bins');
+    expect(GJV.valid(response.body)).toBe(false);  // fix this test to be true when refactoring 
   });
 });
 
