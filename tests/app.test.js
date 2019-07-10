@@ -2,12 +2,17 @@ const app = require('../app');
 const GJV = require('geojson-validation');
 const request = require('supertest');
 const api = request(app);
+const mongoose = require('mongoose');
 
+beforeAll(async () => {
+  connection = mongoose.connect(process.env.MONGODB_URI,  { useNewUrlParser: true });
+});
 
 afterAll(async () => {
   await new Promise((resolve) => setTimeout(() => {
     resolve();
   }, 500)); // avoid jest open handle error with jest and supertest
+  await mongoose.disconnect()
 });
 
 describe('main page loads', () => {

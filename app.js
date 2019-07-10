@@ -6,9 +6,7 @@ const Bin = require('./models/bin');
 
 require('dotenv').config();
 
-const mongoose = require('mongoose');
 
-mongoose.connect(process.env.MONGODB_URI,  { useNewUrlParser: true });
 
 app.engine('handlebars', expressHandlebars({
   defaultLayout: 'main',
