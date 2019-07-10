@@ -1,32 +1,7 @@
 const mongoose = require('mongoose');
 const {MongoMemoryServer} = require('mongodb-memory-server');
+require('./inMemoryDatabaseTestHelper')
 const Bin = require('../models/bin');
-const fs = require('fs');
-const contents = fs.readFileSync(__dirname + '/testData.json');
-const jsonContent = JSON.parse(contents);
-
-let mongoServer;
-
-beforeAll(async () => {
-  mongoServer = new MongoMemoryServer();
-  const mongoUri = await mongoServer.getConnectionString();
-  await mongoose.connect(
-    mongoUri,
-    {useNewUrlParser: true},
-    (err) => {
-      if (err) console.error(err);
-    });
-});
-
-afterAll(async () => {
-  mongoose.disconnect();
-  await mongoServer.stop();
-});
-
-beforeEach(async () => {
-  await Bin.deleteMany({});
-  await Bin.insertMany(jsonContent)
-});
 
 describe('One entry in Database', () => {
   test('Saves data entry', async () => {
