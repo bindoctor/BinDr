@@ -13,10 +13,10 @@ mongoose.connect(process.env.MONGODB_URI,  { useNewUrlParser: true });
 app.engine('handlebars', expressHandlebars({
   defaultLayout: 'main',
   helpers: {
-    googleKey: function () {
+    googleKey: function() {
       return process.env.GOOGLE_KEY;
-    }
-  }
+    },
+  },
 }));
 
 app.set('view engine', 'handlebars');
@@ -47,7 +47,7 @@ app.get('/api/bins', (request, response) => {
 });
 
 const unknownEndpoint = (request, response) => {
-  response.status(404).render('404')
+  response.status(404).render('404');
 };
 
 app.use(unknownEndpoint);

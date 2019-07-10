@@ -147,7 +147,7 @@ function initMap() {
   {name: 'Styled Map'});
 
   map = new google.maps.Map(document.getElementById('map'), {
-    center: {lat: 51.524511, lng: -0.099124},
+    center: {lat: 51.508, lng: -0.075},
     zoom: 18,
     gestureHandling: 'greedy',
     disableDefaultUI: true,
@@ -158,24 +158,24 @@ function initMap() {
   map.setMapTypeId('styled_map');
 
   infoWindow = new google.maps.InfoWindow;
-
-
   // Try HTML5 geolocation.
   if (navigator.geolocation) {
-    navigator.geolocation.getCurrentPosition(function (position) {
-      var pos = {
-        lat: position.coords.latitude,
-        lng: position.coords.longitude
+    navigator.geolocation.getCurrentPosition(function(position) {
+      let latitude = position.coords.latitude;
+      let longitude = position.coords.longitude;
+      map.setCenter(new google.maps.LatLng(latitude, longitude));
+      const pos = {
+        lat: latitude,
+        lng: longitude
       };
-      var userMarker = new google.maps.Marker({
-        position: pos,
+      var ourBouncingBallMarker = new google.maps.Marker({
+        position: {lat: latitude, lng:  longitude},
         map: map,
         icon: im,
         title: 'Hello I live here!',
         animation: google.maps.Animation.BOUNCE
       });
 
-      map.setCenter(pos);
     }, function () {
       handleLocationError(true, infoWindow, map.getCenter());
     });
