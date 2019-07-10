@@ -38,7 +38,7 @@ app.get('/api/bins', (request, response) => {
     // if (err) return err
     let binsCollection = {
       "type": "FeatureCollection",
-      "features": bins}
+      "features": bins};
     
     response.json(binsCollection);  
   });

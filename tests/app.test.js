@@ -2,7 +2,7 @@ const app = require('../app');
 const GJV = require('geojson-validation');
 const request = require('supertest');
 const api = request(app);
-require('./inMemoryDatabaseTestHelper')
+require('./inMemoryDatabaseTestHelper');
 
 
 describe('main page loads', () => {
