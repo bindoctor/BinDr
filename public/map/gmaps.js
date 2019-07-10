@@ -175,9 +175,6 @@ function initMap() {
         animation: google.maps.Animation.BOUNCE
       });
 
-      infoWindow.setPosition({lat: 51.523690, lng: -0.098834});
-      infoWindow.setContent('Smelly bin');
-      infoWindow.open(map);
       map.setCenter(pos);
     }, function () {
       handleLocationError(true, infoWindow, map.getCenter());
@@ -186,7 +183,7 @@ function initMap() {
     // Browser doesn't support Geolocation
     handleLocationError(false, infoWindow, map.getCenter());
   }
-  map.data.loadGeoJson('/api/sample-bins');
+  map.data.loadGeoJson('/api/bins');
 
 }
 
