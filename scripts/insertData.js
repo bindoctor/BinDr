@@ -1,7 +1,8 @@
 require('dotenv').config();
 const mongoose = require('mongoose');
 const fs = require('fs');
-const contents = fs.readFileSync('testData.json');
+
+const contents = fs.readFileSync('../tests/testData.json');
 const jsonContent = JSON.parse(contents);
 const Bin = require('../models/bin');
 

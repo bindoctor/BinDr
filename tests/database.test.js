@@ -1,24 +1,7 @@
 const mongoose = require('mongoose');
 const {MongoMemoryServer} = require('mongodb-memory-server');
+require('./inMemoryDatabaseTestHelper')
 const Bin = require('../models/bin');
-
-let mongoServer;
-
-beforeAll(async () => {
-  mongoServer = new MongoMemoryServer();
-  const mongoUri = await mongoServer.getConnectionString();
-  await mongoose.connect(
-    mongoUri,
-    {useNewUrlParser: true},
-    (err) => {
-      if (err) console.error(err);
-    });
-});
-
-afterAll(async () => {
-  mongoose.disconnect();
-  await mongoServer.stop();
-});
 
 describe('One entry in Database', () => {
   test('Saves data entry', async () => {
@@ -36,6 +19,13 @@ describe('One entry in Database', () => {
     const newBin = new Bin(binJson);
     await newBin.save();
     const count = await Bin.countDocuments();
-    expect(count).toEqual(1);
+    expect(count).toEqual(21);
+  });
+});
+
+describe('Mock data loaded correctly', () => {
+  test('Populates the right number of documents', async () => {
+    const count = await Bin.countDocuments();
+    expect(count).toEqual(20);
   });
 });
