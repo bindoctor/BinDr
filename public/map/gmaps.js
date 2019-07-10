@@ -161,15 +161,11 @@ function initMap() {
   // Try HTML5 geolocation.
   if (navigator.geolocation) {
     navigator.geolocation.getCurrentPosition(function(position) {
-      let latitude = position.coords.latitude;
-      let longitude = position.coords.longitude;
+      updatePosition(position);
       map.setCenter(new google.maps.LatLng(latitude, longitude));
-      const pos = {
-        lat: latitude,
-        lng: longitude
-      };
-      var ourBouncingBallMarker = new google.maps.Marker({
-        position: {lat: latitude, lng:  longitude},
+
+      const ourBouncingBallMarker = new google.maps.Marker({
+        position: currentLocation(),
         map: map,
         icon: im,
         title: 'Hello I live here!',
@@ -184,8 +180,28 @@ function initMap() {
     handleLocationError(false, infoWindow, map.getCenter());
   }
   map.data.loadGeoJson('/api/sample-bins');
-
 }
+
+function updatePosition(position) {
+  if (position) {
+    latitude = position.coords.latitude;
+    longitude = position.coords.longitude;
+  }
+}
+
+function getLocation() {
+  if (navigator.geolocation) {
+    navigator.geolocation.getCurrentPosition(updatePosition);
+  }
+}
+
+setInterval(function() {
+  updatePosition(getLocation());
+}, 10000);
+
+function currentLocation() {
+  return {lat: latitude, lng: longitude};
+};
 
 function handleLocationError(browserHasGeolocation, infoWindow, pos) {
   infoWindow.setPosition(pos);
@@ -194,3 +210,10 @@ function handleLocationError(browserHasGeolocation, infoWindow, pos) {
     'Error: Your browser doesn\'t support geolocation.');
   infoWindow.open(map);
 }
+
+// var redraw = function(payload) {
+//   updatePosition(payload);
+//
+//   map.setCenter({lat:latitude, lng:longitude, alt:0});
+//   map.setPosition({lat:latitude, lng:longitude, alt:0});
+// }
