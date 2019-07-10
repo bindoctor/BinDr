@@ -5,13 +5,17 @@ const morgan = require('morgan');
 const sampleData = require('./sampleData');
 const Bin = require('./models/bin');
 
+require('dotenv').config();
+
+
+
 app.engine('handlebars', expressHandlebars({
   defaultLayout: 'main',
   helpers: {
-    googleKey: function () {
+    googleKey: function() {
       return process.env.GOOGLE_KEY;
-    }
-  }
+    },
+  },
 }));
 
 app.set('view engine', 'handlebars');
@@ -31,21 +35,24 @@ app.get('/about', (request, response) => {
 app.use(express.static('public'));
 
 app.get('/api/sample-bins', (request, response) => {
-  const binJson = {
-    type: 'Feature',
-    properties: {},
-    geometry: {
-      type: 'Point',
-      coordinates: [
-        -0.0996708869934082,
-        51.52560021903987,
-      ],
-    },
-  };
-
-  const newBin = new Bin(binJson);
-  newBin.save();
   response.json(sampleData);
 });
+
+app.get('/api/bins', (request, response) => {
+  Bin.find({},{'geometry': 1, 'type': 1, '_id': 0 },function(err,bins) {
+    // if (err) return err
+    let binsCollection = {
+      "type": "FeatureCollection",
+      "features": bins}
+    
+    response.json(binsCollection);  
+  });
+});
+
+const unknownEndpoint = (request, response) => {
+  response.status(404).render('404');
+};
+
+app.use(unknownEndpoint);
 
 module.exports = app;

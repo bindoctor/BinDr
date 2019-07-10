@@ -147,7 +147,7 @@ function initMap() {
   {name: 'Styled Map'});
 
   map = new google.maps.Map(document.getElementById('map'), {
-    center: {lat: 51.524511, lng: -0.099124},
+    center: {lat: 51.508, lng: -0.075},
     zoom: 18,
     gestureHandling: 'greedy',
     disableDefaultUI: true,
@@ -158,27 +158,24 @@ function initMap() {
   map.setMapTypeId('styled_map');
 
   infoWindow = new google.maps.InfoWindow;
-
-
   // Try HTML5 geolocation.
   if (navigator.geolocation) {
-    navigator.geolocation.getCurrentPosition(function (position) {
-      var pos = {
-        lat: position.coords.latitude,
-        lng: position.coords.longitude
+    navigator.geolocation.getCurrentPosition(function(position) {
+      let latitude = position.coords.latitude;
+      let longitude = position.coords.longitude;
+      map.setCenter(new google.maps.LatLng(latitude, longitude));
+      const pos = {
+        lat: latitude,
+        lng: longitude
       };
-      var userMarker = new google.maps.Marker({
-        position: pos,
+      var ourBouncingBallMarker = new google.maps.Marker({
+        position: {lat: latitude, lng:  longitude},
         map: map,
         icon: im,
         title: 'Hello I live here!',
         animation: google.maps.Animation.BOUNCE
       });
 
-      infoWindow.setPosition({lat: 51.523690, lng: -0.098834});
-      infoWindow.setContent('Smelly bin');
-      infoWindow.open(map);
-      map.setCenter(pos);
     }, function () {
       handleLocationError(true, infoWindow, map.getCenter());
     });
@@ -186,7 +183,24 @@ function initMap() {
     // Browser doesn't support Geolocation
     handleLocationError(false, infoWindow, map.getCenter());
   }
-  map.data.loadGeoJson('/api/sample-bins');
+  var icons = {
+    mixed: {
+      icon: 'https://cdn.mapmarker.io/api/v1/pin?size=60&background=%2343AA8B&icon=fa-recycle&color=%23FFFFFF&voffset=0&hoffset=1&'
+    },
+    glass: {
+      icon: 'https://cdn.mapmarker.io/api/v1/font-awesome/v5/pin?size=60&background=%23B2B09B&icon=fa-wine-bottle&color=%23FFFFFF&voffset=0&hoffset=1&'
+    },
+    paper: {
+      icon: 'https://cdn.mapmarker.io/api/v1/pin?size=60&background=%23FF6F59&icon=fa-copy&color=%23FFFFFF&voffset=0&hoffset=1&'
+    },
+    plastic: {
+      icon: 'https://cdn.mapmarker.io/api/v1/font-awesome/v5/pin?size=60&background=%23254441&icon=fa-shopping-bag&color=%23FFFFFF&voffset=0&hoffset=1&'
+    }
+  };
+
+  map.data.setStyle({icon: icons.mixed.icon});
+
+  map.data.loadGeoJson('/api/bins');
 
 }
 
