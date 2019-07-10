@@ -41,10 +41,13 @@
   "jest": {
     "testEnvironment": "node",
     "collectCoverageFrom": [
-      "*.js"
+      "**/**.js"
     ],
     "coveragePathIgnorePatterns": [
       "/node_modules/",
+      "/public/",
+      "/scripts/",
+      "/coverage/",
       "server.js"
     ],
     "coverageThreshold": {
