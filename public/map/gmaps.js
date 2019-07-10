@@ -2,6 +2,7 @@
 // prompted by your browser. If you see the error "The Geolocation service
 // failed.", it means you probably did not give permission for the browser to
 // locate you.
+const geotracking = require('geolocation-marker');
 var map, infoWindow;
 var im = 'http://www.robotwoods.com/dev/misc/bluecircle.png';
 
@@ -203,6 +204,9 @@ function initMap() {
   map.data.loadGeoJson('/api/bins');
 
 }
+
+var GeoMarker = new GeolocationMarker(map);
+
 
 function handleLocationError(browserHasGeolocation, infoWindow, pos) {
   infoWindow.setPosition(pos);
