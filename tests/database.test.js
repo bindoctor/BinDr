@@ -7,9 +7,12 @@ let mongoServer;
 beforeAll(async () => {
   mongoServer = new MongoMemoryServer();
   const mongoUri = await mongoServer.getConnectionString();
-  await mongoose.connect(mongoUri, (err) => {
-    if (err) console.error(err);
-  });
+  await mongoose.connect(
+    mongoUri,
+    {useNewUrlParser: true},
+    (err) => {
+      if (err) console.error(err);
+    });
 });
 
 afterAll(async () => {
@@ -32,7 +35,7 @@ describe('One entry in Database', () => {
     };
     const newBin = new Bin(binJson);
     await newBin.save();
-    const count = await Bin.count();
+    const count = await Bin.countDocuments();
     expect(count).toEqual(1);
   });
 });
