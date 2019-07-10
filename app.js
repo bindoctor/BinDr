@@ -1,13 +1,11 @@
 const express = require('express');
 const expressHandlebars = require('express-handlebars');
 const app = express();
-const morgan = require('morgan');
 const sampleData = require('./sampleData');
 const Bin = require('./models/bin');
+const applyMorganMiddleware = require('./middleware/morganMiddleware');
 
 require('dotenv').config();
-
-
 
 app.engine('handlebars', expressHandlebars({
   defaultLayout: 'main',
@@ -20,9 +18,7 @@ app.engine('handlebars', expressHandlebars({
 
 app.set('view engine', 'handlebars');
 
-if (app.get('env') !== 'test') {
-  app.use(morgan('dev'));
-}
+applyMorganMiddleware(app);
 
 app.get('/', (request, response) => {
   response.render('home');
