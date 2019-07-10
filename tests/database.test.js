@@ -1,6 +1,9 @@
 const mongoose = require('mongoose');
 const {MongoMemoryServer} = require('mongodb-memory-server');
 const Bin = require('../models/bin');
+const fs = require('fs');
+const contents = fs.readFileSync(__dirname + '/testData.json');
+const jsonContent = JSON.parse(contents);
 
 let mongoServer;
 
@@ -20,6 +23,11 @@ afterAll(async () => {
   await mongoServer.stop();
 });
 
+beforeEach(async () => {
+  await Bin.deleteMany({})
+  await Bin.insertMany(jsonContent)
+})
+
 describe('One entry in Database', () => {
   test('Saves data entry', async () => {
     const binJson = {
@@ -36,6 +44,13 @@ describe('One entry in Database', () => {
     const newBin = new Bin(binJson);
     await newBin.save();
     const count = await Bin.countDocuments();
-    expect(count).toEqual(1);
+    expect(count).toEqual(21);
+  });
+});
+
+describe('Mock data loaded correctly', () => {
+  test('Populates the right number of documents', async () => {
+    const count = await Bin.countDocuments();
+    expect(count).toEqual(20);
   });
 });
