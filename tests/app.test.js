@@ -15,6 +15,17 @@ describe('main page loads', () => {
   });
 });
 
+describe('error page loads', () => {
+  test('returns a 404', () => {
+    return api.get('/not-gonna-be-a-link-that-exists').expect(404);
+  });
+
+  test('returns a message saying 404', async () => {
+    const response = await api.get('/not-gonna-be-a-link-that-exists');
+    expect(response.text).toContain('Sorry, an error has occurred, Requested page not found!')
+  });
+});
+
 describe('about page loads', () => {
   test('shows about page', () => {
     return api.get('/about').expect(200);
