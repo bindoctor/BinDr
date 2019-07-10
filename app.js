@@ -7,10 +7,10 @@ const Bin = require('./models/bin');
 app.engine('handlebars', expressHandlebars({
   defaultLayout: 'main',
   helpers: {
-    googleKey: function () {
+    googleKey: function() {
       return process.env.GOOGLE_KEY;
-    }
-  }
+    },
+  },
 }));
 
 app.set('view engine', 'handlebars');
@@ -44,7 +44,7 @@ app.get('/api/sample-bins', (request, response) => {
 });
 
 const unknownEndpoint = (request, response) => {
-  response.status(404).render('404')
+  response.status(404).render('404');
 };
 
 app.use(unknownEndpoint);
