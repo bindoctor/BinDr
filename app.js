@@ -30,4 +30,10 @@ app.get('/api/sample-bins', (request, response) => {
   response.json(sampleData);
 });
 
+const unknownEndpoint = (request, response) => {
+  response.status(404).render('404')
+};
+
+app.use(unknownEndpoint);
+
 module.exports = app;
