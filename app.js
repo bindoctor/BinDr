@@ -4,6 +4,12 @@ const app = express();
 const sampleData = require('./sampleData');
 const Bin = require('./models/bin');
 
+require('dotenv').config();
+
+const mongoose = require('mongoose');
+
+mongoose.connect(process.env.MONGODB_URI,  { useNewUrlParser: true });
+
 app.engine('handlebars', expressHandlebars({
   defaultLayout: 'main',
   helpers: {
@@ -30,7 +36,7 @@ app.get('/api/sample-bins', (request, response) => {
 });
 
 app.get('/api/bins', (request, response) => {
-  Bin.find({},function(err,bins) {
+  Bin.find({},{'geometry': 1, 'type': 1, '_id': 0, p },function(err,bins) {
     if (err) return err
     let binsCollection = {
       "type": "FeatureCollection",
