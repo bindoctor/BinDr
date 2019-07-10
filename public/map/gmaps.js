@@ -147,7 +147,6 @@ function initMap() {
   {name: 'Styled Map'});
 
   map = new google.maps.Map(document.getElementById('map'), {
-    center: {lat: 51.524511, lng: -0.099124},
     zoom: 18,
     gestureHandling: 'greedy',
     disableDefaultUI: true,
@@ -157,13 +156,11 @@ function initMap() {
   map.mapTypes.set('styled_map', styledMapType);
   map.setMapTypeId('styled_map');
 
-  infoWindow = new google.maps.InfoWindow;
-
-
   // Try HTML5 geolocation.
   if (navigator.geolocation) {
-    navigator.geolocation.getCurrentPosition(function (position) {
-      var pos = {
+    navigator.geolocation.getCurrentPosition(function(position) {
+      map.setCenter(new google.maps.LatLng(position.coords.latitude, position.coords.longitude));
+      const pos = {
         lat: position.coords.latitude,
         lng: position.coords.longitude
       };
