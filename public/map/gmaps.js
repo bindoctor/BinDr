@@ -183,6 +183,23 @@ function initMap() {
     // Browser doesn't support Geolocation
     handleLocationError(false, infoWindow, map.getCenter());
   }
+  var icons = {
+    mixed: {
+      icon: 'https://cdn.mapmarker.io/api/v1/pin?size=60&background=%2343AA8B&icon=fa-recycle&color=%23FFFFFF&voffset=0&hoffset=1&'
+    },
+    glass: {
+      icon: 'https://cdn.mapmarker.io/api/v1/font-awesome/v5/pin?size=60&background=%23B2B09B&icon=fa-wine-bottle&color=%23FFFFFF&voffset=0&hoffset=1&'
+    },
+    paper: {
+      icon: 'https://cdn.mapmarker.io/api/v1/pin?size=60&background=%23FF6F59&icon=fa-copy&color=%23FFFFFF&voffset=0&hoffset=1&'
+    },
+    plastic: {
+      icon: 'https://cdn.mapmarker.io/api/v1/font-awesome/v5/pin?size=60&background=%23254441&icon=fa-shopping-bag&color=%23FFFFFF&voffset=0&hoffset=1&'
+    }
+  };
+
+  map.data.setStyle({icon: icons.mixed.icon});
+
   map.data.loadGeoJson('/api/bins');
 
 }
