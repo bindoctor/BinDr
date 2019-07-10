@@ -147,6 +147,7 @@ function initMap() {
   {name: 'Styled Map'});
 
   map = new google.maps.Map(document.getElementById('map'), {
+    center: {lat: 51.508, lng: -0.075},
     zoom: 18,
     gestureHandling: 'greedy',
     disableDefaultUI: true,
@@ -156,26 +157,25 @@ function initMap() {
   map.mapTypes.set('styled_map', styledMapType);
   map.setMapTypeId('styled_map');
 
+  infoWindow = new google.maps.InfoWindow;
   // Try HTML5 geolocation.
   if (navigator.geolocation) {
     navigator.geolocation.getCurrentPosition(function(position) {
-      map.setCenter(new google.maps.LatLng(position.coords.latitude, position.coords.longitude));
+      let latitude = position.coords.latitude;
+      let longitude = position.coords.longitude;
+      map.setCenter(new google.maps.LatLng(latitude, longitude));
       const pos = {
-        lat: position.coords.latitude,
-        lng: position.coords.longitude
+        lat: latitude,
+        lng: longitude
       };
-      var userMarker = new google.maps.Marker({
-        position: pos,
+      var ourBouncingBallMarker = new google.maps.Marker({
+        position: {lat: latitude, lng:  longitude},
         map: map,
         icon: im,
         title: 'Hello I live here!',
         animation: google.maps.Animation.BOUNCE
       });
 
-      infoWindow.setPosition({lat: 51.523690, lng: -0.098834});
-      infoWindow.setContent('Smelly bin');
-      infoWindow.open(map);
-      map.setCenter(pos);
     }, function () {
       handleLocationError(true, infoWindow, map.getCenter());
     });
