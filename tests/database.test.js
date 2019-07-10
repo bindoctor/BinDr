@@ -24,9 +24,9 @@ afterAll(async () => {
 });
 
 beforeEach(async () => {
-  await Bin.deleteMany({})
+  await Bin.deleteMany({});
   await Bin.insertMany(jsonContent)
-})
+});
 
 describe('One entry in Database', () => {
   test('Saves data entry', async () => {
