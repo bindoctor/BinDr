@@ -9,10 +9,21 @@ zoom: 15
 
 
 map.on('load', function() {
+const geoLocation = new mapboxgl.GeolocateControl({
+    positionOptions: {
+        enableHighAccuracy: true
+    },
+    trackUserLocation: true,
+    showUserLocation: true
+});
+map.addControl(geoLocation);
+
+
 map.addSource('allBins', {
     type: 'geojson',
     data: '/api/bins'
 });
+
 map.loadImage('/images/kissclipart-recycle-png-clipart-recycling-symbol-recycling-bin-d54071ced034dc09.png', function(error, image) {
     if (error) throw error;
     map.addImage('recyclingBin', image);
@@ -26,4 +37,8 @@ map.loadImage('/images/kissclipart-recycle-png-clipart-recycling-symbol-recyclin
             }
         });
     });
+
+setTimeout(geoLocation.trigger(), 5000);
+
+
 });
