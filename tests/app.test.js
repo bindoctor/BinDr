@@ -22,7 +22,7 @@ describe('error page loads', () => {
 
   test('returns a message saying 404', async () => {
     const response = await api.get('/not-gonna-be-a-link-that-exists');
-    expect(response.text).toContain('Sorry, an error has occurred, Requested page not found!')
+    expect(response.text).toContain('Sorry, an error has occurred, Requested page not found!');
   });
 });
 
