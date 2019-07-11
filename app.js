@@ -10,8 +10,8 @@ require('dotenv').config();
 app.engine('handlebars', expressHandlebars({
   defaultLayout: 'main',
   helpers: {
-    googleKey: function() {
-      return process.env.GOOGLE_KEY;
+    mapboxKey: function() {
+      return process.env.MAPBOX_KEY;
     },
   },
 }));
