@@ -2,12 +2,12 @@
 // prompted by your browser. If you see the error "The Geolocation service
 // failed.", it means you probably did not give permission for the browser to
 // locate you.
-var map, infoWindow;
-var im = 'http://www.robotwoods.com/dev/misc/bluecircle.png';
+const map, infoWindow;
+const im = 'http://www.robotwoods.com/dev/misc/bluecircle.png';
 
 function initMap() {
 
-  var retroMapType = new google.maps.StyledMapType(
+  const retroMapType = new google.maps.StyledMapType(
     [
         {
           "elementType": "geometry",
@@ -154,9 +154,9 @@ function initMap() {
           "elementType": "geometry.stroke",
           "stylers": [
             {
-              "color": "#e9bc62"
-            }
-          ]
+              "color": "#e9bc62",
+            },
+          ],
         },
         {
           "featureType": "road.highway.controlled_access",
@@ -265,7 +265,7 @@ function initMap() {
         lat: latitude,
         lng: longitude
       };
-      var ourBouncingBallMarker = new google.maps.Marker({
+      const ourBouncingBallMarker = new google.maps.Marker({
         position: {lat: latitude, lng:  longitude},
         map: map,
         icon: im,
@@ -280,7 +280,7 @@ function initMap() {
     // Browser doesn't support Geolocation
     handleLocationError(false, infoWindow, map.getCenter());
   }
-  var icons = {
+  const icons = {
     mixed: {
       icon: 'https://cdn.mapmarker.io/api/v1/pin?size=60&background=%2343AA8B&icon=fa-recycle&color=%23FFFFFF&voffset=0&hoffset=1&'
     },
