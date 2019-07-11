@@ -2,7 +2,7 @@
 
 
 
-![Image of BinDr](LogoDesigns/pinterest_profile_image.png)
+![Image of BinDr](resources/LogoDesigns/pinterest_profile_image.png)
 # BinDr
 Find your nearest recycling bin
 https://bindoctor.herokuapp.com
