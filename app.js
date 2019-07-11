@@ -38,11 +38,14 @@ app.get('/api/bins', (request, response) => {
   Bin.find({},
       {'geometry': 1,
         'type': 1,
-        '_id': 0}, function(err, bins) {
+        '_id': 0,
+        'properties': 1}).
+      populate('BinType').
+      exec(function(err, bins) {
         // if (err) return err
-        let binsCollection = {
-          "type": "FeatureCollection",
-          "features": bins};
+        const binsCollection = {
+          'type': 'FeatureCollection',
+          'features': bins};
         response.json(binsCollection);
       });
 });

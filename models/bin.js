@@ -7,7 +7,7 @@ const binSchema = new mongoose.Schema({
     required: true,
     default: 'Feature',
   },
-  properties: { type: Schema.Types.ObjectId, ref: 'BinType' },
+  properties: { type: mongoose.Schema.Types.ObjectId, ref: 'BinType' },
   geometry: {
     type: {
       type: String,

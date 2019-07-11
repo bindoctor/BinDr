@@ -11,10 +11,10 @@ mongoose.connect('CHANGME PLEASE', {useNewUrlParser: true});
 
 BinType.findOne({binTypeName: 'Mixed'}, function(err,result){
   let aBin = {
-    type: "Feature",
+    type: 'Feature',
     properties: result._id,
     geometry: {
-      type: "Point",
+      type: 'Point',
       coordinates: [
         -0.09943485260009766,
         51.524992780414806
