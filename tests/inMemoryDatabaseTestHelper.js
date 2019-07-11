@@ -9,7 +9,7 @@ const jsonContent = JSON.parse(contents);
 beforeAll(async () => {
   mongoServer = new MongoMemoryServer();
   const mongoUri = await mongoServer.getConnectionString();
-  await mongoose.connect(mongoUri,  { useNewUrlParser: true });
+  await mongoose.connect(mongoUri, {useNewUrlParser: true});
 });
 
 afterAll(async () => {

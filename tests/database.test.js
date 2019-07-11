@@ -1,4 +1,4 @@
-const mongoose = require('mongoose');
+require('mongoose');
 const {MongoMemoryServer} = require('mongodb-memory-server');
 require('./inMemoryDatabaseTestHelper');
 const Bin = require('../models/bin');
