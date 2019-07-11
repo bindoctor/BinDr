@@ -2,7 +2,7 @@ const app = require('../app');
 const GJV = require('geojson-validation');
 const request = require('supertest');
 const api = request(app);
-require('./inMemoryDatabaseTestHelper')
+require('./inMemoryDatabaseTestHelper');
 
 
 describe('main page loads', () => {
@@ -44,7 +44,7 @@ describe('/api/bins', () => {
   });
   test('check /api/bins gives invalid geoJSON', async () => {
     const response = await api.get('/api/bins');
-    expect(GJV.valid(response.body)).toBe(false);  // fix this test to be true when refactoring
+    expect(GJV.valid(response.body)).toBe(false); // fix this test to be true when refactoring
   });
 });
 
