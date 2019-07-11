@@ -3,7 +3,7 @@ const expressHandlebars = require('express-handlebars');
 const app = express();
 const sampleData = require('./sampleData');
 const Bin = require('./models/bin');
-const BinType = require('./models/binType');
+
 const applyMorganMiddleware = require('./middleware/morganMiddleware');
 
 require('dotenv').config();

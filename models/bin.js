@@ -1,4 +1,5 @@
 const mongoose = require('mongoose');
+const BinType = require('./binType');
 
 const binSchema = new mongoose.Schema({
   type: {
