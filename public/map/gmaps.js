@@ -242,7 +242,7 @@ function initMap() {
       ],
       
       {name: 'Retro with less landmarks'}
-  )
+  );
   map = new google.maps.Map(document.getElementById('map'), {
     center: {lat: 51.508, lng: -0.075},
     zoom: 18,

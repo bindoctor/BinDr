@@ -42,11 +42,15 @@
   "jest": {
     "testEnvironment": "node",
     "collectCoverageFrom": [
-      "*.js"
+      "**/**.js"
     ],
     "coveragePathIgnorePatterns": [
       "/node_modules/",
-      "server.js"
+      "/public/",
+      "/scripts/",
+      "/coverage/",
+      "server.js",
+      "/morganMiddleware.js"
     ],
     "coverageThreshold": {
       "global": {
