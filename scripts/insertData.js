@@ -7,7 +7,19 @@ const jsonContent = JSON.parse(contents);
 const Bin = require('../models/bin');
 const BinType = require('../models/binType');
 
-console.log (process.env.MONGODB_DEVURI)
-mongoose.connect(process.env.MONGODB_URI, {useNewUrlParser: true});
+mongoose.connect('CHANGME PLEASE', {useNewUrlParser: true});
 
-Bin.insertMany(jsonContent, () => mongoose.disconnect() );
+BinType.findOne({binTypeName: 'Mixed'}, function(err,result){
+  let aBin = {
+    type: "Feature",
+    properties: result._id,
+    geometry: {
+      type: "Point",
+      coordinates: [
+        -0.09943485260009766,
+        51.524992780414806
+      ]
+    }
+  }
+  Bin.create(aBin, () => mongoose.disconnect());
+})
