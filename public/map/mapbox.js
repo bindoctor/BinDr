@@ -1,9 +1,11 @@
 var map = new mapboxgl.Map({
 container: 'map',
-style: 'mapbox://styles/mapbox/streets-v11',
-center: [ -157.862539, 21.305034],
+style: 'mapbox://styles/bindr/cjxyplq2c064h1cmxgpyefs28',
+center: [-0.099207, 51.524531],
 zoom: 15
 });
+
+map.on('load', function() {
 
 const geoLocation = new mapboxgl.GeolocateControl({
     positionOptions: {
@@ -11,6 +13,12 @@ const geoLocation = new mapboxgl.GeolocateControl({
     },
     trackUserLocation: true,
     showUserLocation: true
+});
+map.addControl(geoLocation);
+  
+map.addSource('allBins', {
+    type: 'geojson',
+    data: '/api/bins'
 });
 
 map.on('load', function() {
