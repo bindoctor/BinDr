@@ -229,4 +229,4 @@ export let style = [
       }
     ]
   }
-]
+];
