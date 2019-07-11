@@ -7,19 +7,25 @@ const jsonContent = JSON.parse(contents);
 const Bin = require('../models/bin');
 const BinType = require('../models/binType');
 
-mongoose.connect('CHANGME PLEASE', {useNewUrlParser: true});
+const data = require('../tests/testData.js');
 
-BinType.findOne({binTypeName: 'Mixed'}, function(err,result){
-  let aBin = {
-    type: 'Feature',
-    properties: result._id,
-    geometry: {
-      type: 'Point',
-      coordinates: [
-        -0.09943485260009766,
-        51.524992780414806
-      ]
-    }
-  }
-  Bin.create(aBin, () => mongoose.disconnect());
-})
+mongoose.connect('mongodb+srv://bindr:welovebins@cluster0-3lj98.mongodb.net/dev?retryWrites=true&w=majority', {useNewUrlParser: true});
+
+BinType.insertMany(data.binTypes, () => {
+  Bin.insertMany(data.bins, () => mongoose.disconnect());
+});
+
+// BinType.findOne({binTypeName: 'Mixed'}, function(err, result) {
+//   const aBin = {
+//     type: 'Feature',
+//     properties: result._id,
+//     geometry: {
+//       type: 'Point',
+//       coordinates: [
+//         -0.09943485260009766,
+//         51.524992780414806,
+//       ],
+//     },
+//   };
+//   Bin.create(aBin, () => mongoose.disconnect());
+// });
