@@ -24,7 +24,7 @@ map.addSource('allBins', {
     data: '/api/bins'
 });
 
-map.loadImage('/images/kissclipart-recycle-png-clipart-recycling-symbol-recycling-bin-d54071ced034dc09.png', function(error, image) {
+map.loadImage('/map-markers/mixed.png', function(error, image) {
     if (error) throw error;
     map.addImage('recyclingBin', image);
     map.addLayer({
@@ -33,7 +33,7 @@ map.loadImage('/images/kissclipart-recycle-png-clipart-recycling-symbol-recyclin
         "source": "allBins",
         "layout": {
             "icon-image": "recyclingBin",
-            "icon-size": 0.1
+            "icon-size": 0.3
             }
         });
     });
