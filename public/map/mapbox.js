@@ -34,10 +34,3 @@ map.on('load', function() {
     });
 });
 map.addControl(geoLocation);
-
-geolocate.on('geoLocation', function() {
-    var userlocation = geolocate._lastKnownPosition;
-    var lat = userlocation.coords.latitude;
-    var lng = userlocation.coords.longitude;
-
-});
