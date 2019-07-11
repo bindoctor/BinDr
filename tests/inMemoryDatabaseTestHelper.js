@@ -1,9 +1,9 @@
 const mongoose = require('mongoose');
 const {MongoMemoryServer} = require('mongodb-memory-server');
 const Bin = require('../models/bin');
-const fs = require('fs');
-const contents = fs.readFileSync(__dirname + '/testData.json');
-const jsonContent = JSON.parse(contents);
+const BinType = require('../models/binType');
+const data = require('../tests/testData.js');
+
 
 
 beforeAll(async () => {
@@ -22,5 +22,8 @@ afterAll(async () => {
 
 beforeEach(async () => {
   await Bin.deleteMany({});
-  await Bin.insertMany(jsonContent);
+  await BinType.deleteMany({});
+  await BinType.insertMany(data.binTypes);
+  await Bin.insertMany(data.bins);
+
 });
