@@ -116,4 +116,14 @@ describe('/api/users/login', () => {
         expect(response.body.errors.password).toEqual('is required');
       });
   });
+  test('reports 400 status code when email is invalid', () => {
+    return api.post('/api/users/login')
+      .send({user: {
+          email: 'dontexist@test.com',
+          password: 'password123',
+        }})
+      .set('Accept', 'application/json')
+      .expect(500)
+  });
+
 });
