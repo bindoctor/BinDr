@@ -34,6 +34,13 @@ to run the above:
 npm run {script name}
 ```
 
+To run data population scripts:
+```sh
+export SCRIPT_DB_URL=<db url>
+cd scripts
+node insterData.js
+```
+
 ## CI/CD pipline
 Github -> Travis -> Heroku
 ### Github
