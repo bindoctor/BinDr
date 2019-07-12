@@ -15,6 +15,8 @@ Run `npm install`
 Create .env file in your project root with the database configuration:
 ```
 MONGODB_URI=<url>
+MONGODB_DEV_URI=<devurl>
+MAPBOX_KEY=<mapboxdevkey>
 ```
 
 NPM scripts available:
@@ -22,7 +24,7 @@ NPM scripts available:
 "scripts": {
   "test": "jest --coverage --verbose ./tests --detectOpenHandles --runInBand",
   "lint": "eslint .",
-  "dev": "nodemon server.js",
+  "dev": "NODE_ENV=dev nodemon server.js",
   "start": "node server.js"
 }
 ```

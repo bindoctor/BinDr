@@ -3,6 +3,7 @@ const expressHandlebars = require('express-handlebars');
 const app = express();
 const sampleData = require('./sampleData');
 const Bin = require('./models/bin');
+
 const applyMorganMiddleware = require('./middleware/morganMiddleware');
 
 require('dotenv').config();
@@ -38,11 +39,14 @@ app.get('/api/bins', (request, response) => {
   Bin.find({},
       {'geometry': 1,
         'type': 1,
-        '_id': 0}, function(err, bins) {
+        '_id': 0,
+        'properties': 1}).
+      populate('properties').
+      exec(function(err, bins) {
         // if (err) return err
-        let binsCollection = {
-          "type": "FeatureCollection",
-          "features": bins};
+        const binsCollection = {
+          'type': 'FeatureCollection',
+          'features': bins};
         response.json(binsCollection);
       });
 });

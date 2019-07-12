@@ -1,4 +1,5 @@
 const mongoose = require('mongoose');
+const BinType = require('./binType');
 
 const binSchema = new mongoose.Schema({
   type: {
@@ -7,7 +8,7 @@ const binSchema = new mongoose.Schema({
     required: true,
     default: 'Feature',
   },
-  properties: {},
+  properties: { type: mongoose.Schema.Types.ObjectId, ref: 'BinType' },
   geometry: {
     type: {
       type: String,
