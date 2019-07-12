@@ -48,36 +48,5 @@ describe('/api/bins', () => {
   });
 });
 
-describe('/api/users', () => {
-  test('accepts user credentials', () => {
-    return api.post('/api/users')
-      .send({user: {
-        email: "user@test.com",
-        password: "password123"
-      }})
-      .set('Accept', 'application/json')
-      .expect('Content-Type', /json/)
-      .expect(200);
 
-  });
-});
-
-describe('/api/users/current', () => {
-  test('when logged in I can see stuff', async () => {
-    let token;
-    await api.post('/api/users')
-      .send({user: {
-          email: "user@test.com",
-          password: "password123"
-        }})
-      .set('Accept', 'application/json')
-      .then(response => {
-        token = response.body.user.token;
-      });
-    return api.get('/api/users/current')
-      .set('Authorization', 'Token ' + token)
-      .set('Accept', 'application/json')
-      .expect(200);
-  });
-});
 
