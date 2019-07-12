@@ -27,5 +27,4 @@ beforeEach(async () => {
   await BinType.insertMany(data.binTypes);
   await Bin.insertMany(data.bins);
   await User.deleteMany({});
-
 });
