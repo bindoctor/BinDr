@@ -3,6 +3,8 @@ const expressHandlebars = require('express-handlebars');
 const app = express();
 const sampleData = require('./sampleData');
 const Bin = require('./models/bin');
+require('./models/user');
+require('./config/passport');
 
 const applyMorganMiddleware = require('./middleware/morganMiddleware');
 const applyEnforceHttps = require('./applyEnforceHttps')
