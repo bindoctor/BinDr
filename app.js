@@ -5,6 +5,7 @@ const sampleData = require('./sampleData');
 const Bin = require('./models/bin');
 require('./models/user');
 require('./config/passport');
+app.use(require('./routes'));
 
 const applyMorganMiddleware = require('./middleware/morganMiddleware');
 const applyEnforceHttps = require('./applyEnforceHttps')
