@@ -6,23 +6,22 @@ zoom: 15
 });
 
 map.on('load', function() {
-
-const geoLocation = new mapboxgl.GeolocateControl({
-    positionOptions: {
-        enableHighAccuracy: true
-    },
-    trackUserLocation: true,
-    showUserLocation: true
-});
-map.addControl(geoLocation);
-  
-map.addSource('allBins', {
-    type: 'geojson',
-    data: '/api/bins'
-});
-
-map.on('load', function() {
-    geoLocation.trigger();
+    const geoLocation = new mapboxgl.GeolocateControl({
+        positionOptions: {
+            enableHighAccuracy: true
+        },
+        trackUserLocation: true,
+        showUserLocation: true
+    });
+    map.addControl(geoLocation);
+    
+    
+    
+    map.addSource('allBins', {
+        type: 'geojson',
+        data: '/api/bins'
+    });
+    
     map.loadImage('/map-markers/mixed.png', function(error, image) {
         if (error) throw error;
         map.addImage('recyclingBin', image);
@@ -33,12 +32,12 @@ map.on('load', function() {
             "layout": {
                 "icon-image": "recyclingBin",
                 "icon-size": 0.3
-            }
+                }
+            });
         });
+    
+    setTimeout(geoLocation.trigger(), 5000);
+    
+    
     });
-    map.addSource('allBins', {
-        type: 'geojson',
-        data: '/api/bins'
-    });
-});
-map.addControl(geoLocation);
+    

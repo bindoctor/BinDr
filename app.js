@@ -1,11 +1,19 @@
 const express = require('express');
 const expressHandlebars = require('express-handlebars');
-const app = express();
+const httpsLocalhost = require("https-localhost")
+
+// const app = express();
+const app = httpsLocalhost()
+
 const sampleData = require('./sampleData');
 const Bin = require('./models/bin');
 const applyMorganMiddleware = require('./middleware/morganMiddleware');
-
+const enforce = require('express-sslify');
 require('dotenv').config();
+
+// if (process.env.NODE_ENV !== 'dev' && process.env.NODE_ENV !== 'test') {
+  app.use(enforce.HTTPS());
+// }
 
 app.engine('handlebars', expressHandlebars({
   defaultLayout: 'main',
@@ -19,6 +27,13 @@ app.engine('handlebars', expressHandlebars({
 app.set('view engine', 'handlebars');
 
 applyMorganMiddleware(app);
+
+// if(process.env.NODE_ENV != 'dev') {
+//   app.get('*', function(req, res) {  
+//     res.redirect('https://' + req.headers.host + req.url);
+//   })
+// }
+
 
 app.get('/', (request, response) => {
   response.render('home');
