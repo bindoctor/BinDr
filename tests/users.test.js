@@ -69,6 +69,12 @@ describe('/api/users/current', () => {
           expect(response.body.user.token).toEqual(token);
         });
   });
+
+  test('when not passing a valid token in I cant see stuff', async () => {
+    return api.get('/api/users/current')
+      .set('Accept', 'application/json')
+      .expect(401)
+  })
 });
 
 describe('/api/users/login', () => {
