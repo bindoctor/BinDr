@@ -35,7 +35,6 @@
     "eslint": "^6.0.1",
     "eslint-config-google": "^0.13.0",
     "geojson-validation": "^0.2.1",
-    "https-localhost": "^4.1.2",
     "jest": "^24.8.0",
     "mongodb-memory-server": "^5.1.5",
     "nodemon": "^1.19.1",
