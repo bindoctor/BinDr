@@ -52,7 +52,8 @@
       "/scripts/",
       "/coverage/",
       "server.js",
-      "/morganMiddleware.js"
+      "/morganMiddleware.js",
+      "applyEnforceHttps.js"
     ],
     "coverageThreshold": {
       "global": {

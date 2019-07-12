@@ -3,6 +3,7 @@ const GJV = require('geojson-validation');
 const request = require('supertest');
 const api = request(app);
 require('./inMemoryDatabaseTestHelper');
+process.env.NODE_TLS_REJECT_UNAUTHORIZED = '0';
 
 
 describe('main page loads', () => {
