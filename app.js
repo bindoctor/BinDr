@@ -2,9 +2,16 @@ const express = require('express');
 const expressHandlebars = require('express-handlebars');
 const app = express();
 const sampleData = require('./sampleData');
+const bodyParser = require('body-parser');
 const Bin = require('./models/bin');
 require('./models/user');
 require('./config/passport');
+
+//The order of these statements is important
+app.use(express.static('public'));
+app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.json());
+
 app.use(require('./routes'));
 
 const applyMorganMiddleware = require('./middleware/morganMiddleware');
@@ -33,7 +40,7 @@ app.get('/about', (request, response) => {
   response.render('about');
 });
 
-app.use(express.static('public'));
+
 
 app.get('/api/sample-bins', (request, response) => {
   response.json(sampleData);
