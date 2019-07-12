@@ -5,7 +5,7 @@ const sampleData = require('./sampleData');
 const Bin = require('./models/bin');
 
 const applyMorganMiddleware = require('./middleware/morganMiddleware');
-
+const applyEnforceHttps = require('./applyEnforceHttps')
 require('dotenv').config();
 
 app.engine('handlebars', expressHandlebars({
@@ -18,8 +18,9 @@ app.engine('handlebars', expressHandlebars({
 }));
 
 app.set('view engine', 'handlebars');
-
+applyEnforceHttps(app)
 applyMorganMiddleware(app);
+
 
 app.get('/', (request, response) => {
   response.render('home');
