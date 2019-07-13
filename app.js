@@ -3,22 +3,24 @@ const expressHandlebars = require('express-handlebars');
 const app = express();
 const sampleData = require('./sampleData');
 const Bin = require('./models/bin');
-const applyMorganMiddleware = require('./middleware/morganMiddleware');
 
+const applyMorganMiddleware = require('./middleware/morganMiddleware');
+const applyEnforceHttps = require('./applyEnforceHttps')
 require('dotenv').config();
 
 app.engine('handlebars', expressHandlebars({
   defaultLayout: 'main',
   helpers: {
-    googleKey: function() {
-      return process.env.GOOGLE_KEY;
+    mapboxKey: function() {
+      return process.env.MAPBOX_KEY;
     },
   },
 }));
 
 app.set('view engine', 'handlebars');
-
+applyEnforceHttps(app)
 applyMorganMiddleware(app);
+
 
 app.get('/', (request, response) => {
   response.render('home');
@@ -38,11 +40,14 @@ app.get('/api/bins', (request, response) => {
   Bin.find({},
       {'geometry': 1,
         'type': 1,
-        '_id': 0}, function(err, bins) {
+        '_id': 0,
+        'properties': 1}).
+      populate('properties').
+      exec(function(err, bins) {
         // if (err) return err
-        let binsCollection = {
-          "type": "FeatureCollection",
-          "features": bins};
+        const binsCollection = {
+          'type': 'FeatureCollection',
+          'features': bins};
         response.json(binsCollection);
       });
 });

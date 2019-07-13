@@ -44,7 +44,7 @@ describe('/api/bins', () => {
   });
   test('check /api/bins gives invalid geoJSON', async () => {
     const response = await api.get('/api/bins');
-    expect(GJV.valid(response.body)).toBe(false); // fix this test to be true when refactoring
+    expect(GJV.valid(response.body)).toBe(true); 
   });
 });
 

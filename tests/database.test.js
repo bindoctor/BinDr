@@ -1,11 +1,13 @@
 require('./inMemoryDatabaseTestHelper');
 const Bin = require('../models/bin');
+const BinType = require('../models/binType');
+
 
 describe('One entry in Database', () => {
   test('Saves data entry', async () => {
     const binJson = {
       type: 'Feature',
-      properties: {},
+      properties: (new BinType)._id,
       geometry: {
         type: 'Point',
         coordinates: [

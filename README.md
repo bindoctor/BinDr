@@ -2,7 +2,7 @@
 
 
 
-![Image of BinDr](LogoDesigns/pinterest_profile_image.png)
+![Image of BinDr](resources/LogoDesigns/pinterest_profile_image.png)
 # BinDr
 Find your nearest recycling bin
 https://bindoctor.herokuapp.com
@@ -15,6 +15,8 @@ Run `npm install`
 Create .env file in your project root with the database configuration:
 ```
 MONGODB_URI=<url>
+MONGODB_DEV_URI=<devurl>
+MAPBOX_KEY=<mapboxdevkey>
 ```
 
 NPM scripts available:
@@ -22,7 +24,7 @@ NPM scripts available:
 "scripts": {
   "test": "jest --coverage --verbose ./tests --detectOpenHandles --runInBand",
   "lint": "eslint .",
-  "dev": "nodemon server.js",
+  "dev": "NODE_ENV=dev nodemon server.js",
   "start": "node server.js"
 }
 ```
@@ -30,6 +32,13 @@ to run the above:
 
 ```sh
 npm run {script name}
+```
+
+To run data population scripts:
+```sh
+export SCRIPT_DB_URL=<db url>
+cd scripts
+node insterData.js
 ```
 
 ## CI/CD pipline
