@@ -27,9 +27,11 @@ body {
 @media (min-width: 768px) {
     nav.navbar {
         height: 80px;
-        /*display: flex;*/
+        display: flex;
         align-items: center;
     }
+
+
 }
 @media (max-width: 767px) {
     .navbar-header {
