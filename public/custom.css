@@ -7,15 +7,23 @@ body {
   * element that contains the map. */
   #map {
     height: 90vh;
-    top:0; 
-    bottom:0; 
+    top:0;
+    bottom:0;
     width:100%;
   }
+.navbar-brand {
+    padding: 0px;
+}
+.navbar-brand>img {
+    height: 100%;
+    padding: 0px;
+    width: auto;
+}
 
   .navbar {
     height: 10vh;
   }
-  
+
 .container-fluid {
     padding: 0;
   }
