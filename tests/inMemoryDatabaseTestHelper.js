@@ -2,6 +2,7 @@ const mongoose = require('mongoose');
 const {MongoMemoryServer} = require('mongodb-memory-server');
 const Bin = require('../models/bin');
 const BinType = require('../models/binType');
+const User = require('../models/user');
 const data = require('../tests/testData.js');
 
 
@@ -25,5 +26,5 @@ beforeEach(async () => {
   await BinType.deleteMany({});
   await BinType.insertMany(data.binTypes);
   await Bin.insertMany(data.bins);
-
+  await User.deleteMany({});
 });
