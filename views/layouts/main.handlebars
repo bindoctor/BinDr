@@ -64,8 +64,8 @@
                             "password": document.getElementById('password').value
                         }
                     }),
-                    success: function() {
-                      console.log('HELLO ANNA IT WAS SUCCESSFUL');
+                    success: function(response, error) {
+                      document.cookie = `Auth=${response.user.token}`;
                       window.location.replace('/');
                     },
                     error: function() {
