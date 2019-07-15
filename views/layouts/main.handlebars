@@ -21,7 +21,8 @@
     <div class="container-fluid">
         <div class="navbar-header">
             <a class="navbar-brand" href="#"><img src="/logo.png" alt="BinDr"></a>
-            <button class="navbar-toggler float-xs-right" type="button" data-toggle="collapse" data-target="#navbarNavMine"
+            <button class="navbar-toggler float-xs-right" type="button" data-toggle="collapse"
+                    data-target="#navbarNavMine"
                     aria-controls="navbarNavMine" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
@@ -49,19 +50,32 @@
     {{{body}}}
 </div>
 <script>
-    $(document).ready(function() {
-        $(function(){
-            $('#loginForm').on('submit', function(event) {
-              event.preventDefault();
-                console.log('***************************HELLO');
+    $(document).ready(function () {
+        $(function () {
+            $('#loginForm').on('submit', function (event) {
+                event.preventDefault();
+                $.ajax({
+                    url: '/api/users/login',
+                    type: 'post',
+                    contentType: 'application/json',
+                    data: JSON.stringify({
+                        "user": {
+                            "email": document.getElementById('email').value,
+                            "password": document.getElementById('password').value
+                        }
+                    }),
+                    success: function() {
+                      console.log('HELLO ANNA IT WAS SUCCESSFUL')
+                    },
+                    error: function() {
+                      console.log("HELLO GEOFF IT WAS ERROR")
+                    }
+                });
             });
         });
     });
 
 </script>
-<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
-        integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
-        crossorigin="anonymous"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
         integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
         crossorigin="anonymous"></script>
