@@ -3,6 +3,8 @@ const expressHandlebars = require('express-handlebars');
 const app = express();
 const sampleData = require('./sampleData');
 const bodyParser = require('body-parser');
+const applyMorganMiddleware = require('./middleware/morganMiddleware');
+const applyEnforceHttps = require('./config/applyEnforceHttps')
 require('./models/user');
 require('./models/bin');
 require('./config/passport');
@@ -12,10 +14,11 @@ app.use(express.static('public'));
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
+applyMorganMiddleware(app);
+applyEnforceHttps(app);
+
 app.use(require('./routes'));
 
-const applyMorganMiddleware = require('./middleware/morganMiddleware');
-const applyEnforceHttps = require('./config/applyEnforceHttps')
 require('dotenv').config();
 
 app.engine('handlebars', expressHandlebars({
@@ -28,9 +31,6 @@ app.engine('handlebars', expressHandlebars({
 }));
 
 app.set('view engine', 'handlebars');
-applyEnforceHttps(app)
-applyMorganMiddleware(app);
-
 
 app.get('/', (request, response) => {
   response.render('home');
