@@ -38,9 +38,3 @@ map.on('load', async function () {
 });
 
 map.addControl(geoLocation);
-
-geolocation.on('geoLocation', function () {
-  var userlocation = geolocate._lastKnownPosition;
-  var lat = userlocation.coords.latitude;
-  var lng = userlocation.coords.longitude;
-});
