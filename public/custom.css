@@ -1,21 +1,50 @@
 body {
   overflow: hidden;
+    /*height: 100vh;*/
 }
 
 
 /* Always set the map height explicitly to define the size of the div
   * element that contains the map. */
   #map {
-    height: 90vh;
-    top:0; 
-    bottom:0; 
+    height: 100vh;
+    top:0;
+    bottom:0;
     width:100%;
   }
+.navbar-brand {
+    padding: 0px;
+}
+.navbar-brand>img {
+    height: 100%;
+    padding: 0px;
+    width: auto;
+}
 
-  .navbar {
-    height: 10vh;
-  }
-  
+  /*.navbar {*/
+  /*  height: 10vh;*/
+  /*}*/
+@media (min-width: 999px) {
+    nav.navbar {
+        height: 80px;
+        display: flex;
+        align-items: center;
+    }
+
+
+}
+@media (max-width: 998px) {
+    .navbar-header {
+        height: 80px;
+        padding: 15px;
+        width: 100%;
+    }
+    .navbar-toggler {
+        margin-top: 5px;
+        float: right;
+    }
+}
+
 .container-fluid {
     padding: 0;
   }
