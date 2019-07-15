@@ -36,10 +36,10 @@ map.on('load', async function () {
     }
   });
 
-  map.on('click', 'points', function (e) {
+  map.on('click', 'points', function (event) {
     new mapboxgl.Popup()
-    .setLngLat(e.lngLat)
-    .setHTML("<h3>" + e.features[0].properties.binTypeName + "</h3>" + "<p>" + e.lngLat + "</p>")
+    .setLngLat(event.lngLat)
+    .setHTML("<h3>" + event.features[0].properties.binTypeName + "</h3>" + "<p>" + event.lngLat + "</p>")
     .addTo(map);
     });
 
@@ -60,42 +60,29 @@ map.addControl(geoLocation);
 
 let addBinMarker;
 
-let lngLat;
-
-map.on('click', (e) => {
+map.on('click', (event) => {
   if(!addBinMarker) {
-    // create DOM element for the marker
-    var el = document.createElement('div');
-    el.id = 'mapboxgl-mixed-bin-marker';
-    // el.draggable = true;
+    var marker = document.createElement('div');
+    marker.id = 'mapboxgl-mixed-bin-marker';
   
-    // create the marker
-    addBinMarker = new mapboxgl.Marker({draggable: true, element: el})
-        .setLngLat(e.lngLat)
+    addBinMarker = new mapboxgl.Marker({draggable: true, element: marker})
+        .setLngLat(event.lngLat)
         .addTo(map);
-    var addButton = document.getElementById('add-box');
 
-    addButton.style.display = 'block';
+    let addBox = document.getElementById('add-box')
+    addBox.style.display = 'block';
         
-    function onDragEnd() {
-      lngLat = addBinMarker.getLngLat();
-      console.log(lngLat)
-      }
-      
-    addBinMarker.on('dragend', onDragEnd)
   } else {
-    addBinMarker.setLngLat(e.lngLat)
+    addBinMarker.setLngLat(event.lngLat)
   }
 
 });
 
 $(document).ready(function() {
-  
   $('#submit-bin').click(function() {
     markerLngLat = addBinMarker.getLngLat()
-    console.log(markerLngLat)
     var binType = $("input:radio[name='bintype']:checked").attr('id');
-    console.log(binType)
+
     $.ajax({
       type: 'POST',
       url: `/api/bins`,
@@ -108,7 +95,6 @@ $(document).ready(function() {
       }
     })
     .done(function(result){
-      console.log(result)
       callback(result)
     })
   })
