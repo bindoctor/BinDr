@@ -52,3 +52,37 @@ body {
 .error-template {padding: 40px 15px;text-align: center;}
 .error-actions {margin-top:15px;margin-bottom:15px;}
 .error-actions .btn { margin-right:10px; }
+
+#mapboxgl-mixed-bin-marker {
+  background-image: url('/map-markers/pin.png');
+  background-size: cover;
+  height: 50px;
+  width: 50px;
+  position: absolute;
+  top: 0;
+  left: 0;
+  will-change: transform;
+  cursor: pointer;
+}
+
+.add-box {
+  background: rgba(255,255,255,0.5);
+  color: #fff;
+  position: absolute;
+  bottom: 40px;
+  left: 10px;
+  padding:5px 10px;
+  margin: 0 auto;
+  font-size: 5px;
+  border-radius: 3px;
+  display: none;
+  }
+
+  .inline-no-padding {
+    display: inline;
+    padding: 0;
+  }
+
+  .margin-right {
+    margin-right: 25px;
+  }
