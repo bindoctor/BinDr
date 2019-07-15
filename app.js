@@ -2,10 +2,20 @@ const express = require('express');
 const expressHandlebars = require('express-handlebars');
 const app = express();
 const sampleData = require('./sampleData');
-const Bin = require('./models/bin');
+const bodyParser = require('body-parser');
+require('./models/user');
+require('./models/bin');
+require('./config/passport');
+
+//The order of these statements is important
+app.use(express.static('public'));
+app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.json());
+
+app.use(require('./routes'));
 
 const applyMorganMiddleware = require('./middleware/morganMiddleware');
-const applyEnforceHttps = require('./applyEnforceHttps')
+const applyEnforceHttps = require('./config/applyEnforceHttps')
 require('dotenv').config();
 
 app.engine('handlebars', expressHandlebars({
@@ -30,27 +40,12 @@ app.get('/about', (request, response) => {
   response.render('about');
 });
 
-app.use(express.static('public'));
+
 
 app.get('/api/sample-bins', (request, response) => {
   response.json(sampleData);
 });
 
-app.get('/api/bins', (request, response) => {
-  Bin.find({},
-      {'geometry': 1,
-        'type': 1,
-        '_id': 0,
-        'properties': 1}).
-      populate('properties').
-      exec(function(err, bins) {
-        // if (err) return err
-        const binsCollection = {
-          'type': 'FeatureCollection',
-          'features': bins};
-        response.json(binsCollection);
-      });
-});
 
 const unknownEndpoint = (request, response) => {
   response.status(404).render('404');
