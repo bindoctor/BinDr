@@ -36,10 +36,10 @@ map.on('load', async function () {
     }
   });
 
-  map.on('click', 'points', function (e) {
+  map.on('click', 'points', function (event) {
     new mapboxgl.Popup()
-    .setLngLat(e.lngLat)
-    .setHTML("<h3>" + e.features[0].properties.binTypeName + "</h3>" + "<p>" + e.lngLat + "</p>")
+    .setLngLat(event.lngLat)
+    .setHTML("<h3>" + event.features[0].properties.binTypeName + "</h3>" + "<p>" + event.lngLat + "</p>")
     .addTo(map);
     });
 
@@ -57,3 +57,45 @@ map.on('load', async function () {
 });
 
 map.addControl(geoLocation);
+
+let addBinMarker;
+
+map.on('click', (event) => {
+  if(!addBinMarker) {
+    var marker = document.createElement('div');
+    marker.id = 'mapboxgl-mixed-bin-marker';
+  
+    addBinMarker = new mapboxgl.Marker({draggable: true, element: marker})
+        .setLngLat(event.lngLat)
+        .addTo(map);
+
+    let addBox = document.getElementById('add-box')
+    addBox.style.display = 'block';
+        
+  } else {
+    addBinMarker.setLngLat(event.lngLat)
+  }
+
+});
+
+$(document).ready(function() {
+  $('#submit-bin').click(function() {
+    markerLngLat = addBinMarker.getLngLat()
+    var binType = $("input:radio[name='bintype']:checked").attr('id');
+
+    $.ajax({
+      type: 'POST',
+      url: `/api/bins`,
+      data: {
+        bin: {
+          type: binType,
+          lng: markerLngLat.lng,
+          lat: markerLngLat.lat
+        }
+      }
+    })
+    .done(function(result){
+      callback(result)
+    })
+  })
+})
