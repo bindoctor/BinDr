@@ -40,7 +40,9 @@ app.get('/about', (request, response) => {
   response.render('about');
 });
 
-
+app.get('/login', (request, response) => {
+  response.render('login');
+});
 
 app.get('/api/sample-bins', (request, response) => {
   response.json(sampleData);
