@@ -1,7 +1,7 @@
 var map = new mapboxgl.Map({
   container: 'map',
   style: 'mapbox://styles/bindr/cjxyplq2c064h1cmxgpyefs28',
-  center: [-157.862539, 21.305034],
+  center: [-0.099207, 51.524531],
   zoom: 15
 });
 
@@ -32,6 +32,34 @@ map.on('load', function () {
     type: 'geojson',
     data: '/api/bins'
   });
+
+  map.addLayer({
+    "id": "points",
+    "type": "symbol",
+    "source": "allBins",
+    "layout": {
+      "icon-image": ['get','iconUrl', ['get', 'icon']],
+      "icon-size": 0.3
+    }
+  });
+
+  map.on('click', 'points', function (e) {
+    new mapboxgl.Popup()
+    .setLngLat(e.lngLat)
+    .setHTML("<h3>" + e.features[0].properties.binTypeName + "</h3>" + "<p>" + e.lngLat + "</p>")
+    .addTo(map);
+    });
+
+  // Change the cursor to a pointer when the mouse is over the states layer.
+  map.on('mouseenter', 'states-layer', function () {
+    map.getCanvas().style.cursor = 'pointer';
+  });
+   
+  // Change it back to a pointer when it leaves.
+  map.on('mouseleave', 'states-layer', function () {
+    map.getCanvas().style.cursor = '';
+  });
+     
 });
 
 map.addControl(geoLocation);
