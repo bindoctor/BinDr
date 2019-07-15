@@ -39,7 +39,7 @@ map.on('load', async function () {
   map.on('click', 'points', function (e) {
     new mapboxgl.Popup()
     .setLngLat(e.lngLat)
-    .setHTML("<h3>" + e.features[0].properties.binTypeName + "</h3>" + "<p>" + e.lngLat)
+    .setHTML("<h3>" + e.features[0].properties.binTypeName + "</h3>" + "<p>" + e.lngLat "</p>")
     .addTo(map);
     });
 
