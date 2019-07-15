@@ -24,7 +24,7 @@ body {
   /*.navbar {*/
   /*  height: 10vh;*/
   /*}*/
-@media (min-width: 768px) {
+@media (min-width: 999px) {
     nav.navbar {
         height: 80px;
         display: flex;
@@ -33,14 +33,15 @@ body {
 
 
 }
-@media (max-width: 767px) {
+@media (max-width: 998px) {
     .navbar-header {
         height: 80px;
-        padding-top: 15px;
-        padding-bottom: 15px;
+        padding: 15px;
+        width: 100%;
     }
-    .navbar-toggle {
+    .navbar-toggler {
         margin-top: 5px;
+        float: right;
     }
 }
 
