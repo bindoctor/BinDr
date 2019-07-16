@@ -19,3 +19,8 @@
 ![Plastic](./plastic.png)
 
 ```https://cdn.mapmarker.io/api/v1/font-awesome/v5/pin?size=120&background=%23254441&icon=fa-shopping-bag&color=%23FFFFFF&voffset=0&hoffset=1&```
+
+## Add new bin
+![Add new bin](./add.png)
+
+```https://cdn.mapmarker.io/api/v1/pin?size=60&background=%23254441&icon=fa-exclamation-triangle&color=%23FFFFFF&voffset=0&hoffset=1&```
