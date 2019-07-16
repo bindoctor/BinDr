@@ -4,11 +4,8 @@ const app = express();
 const sampleData = require("./sampleData");
 const bodyParser = require("body-parser");
 require("./models/user");
-const binSchema = require("./models/bin");
+require("./models/bin");
 require("./config/passport");
-// ============
-const mongoose = require("mongoose");
-const Bin = mongoose.model("Bin", binSchema);
 
 // The order of these statements is important
 app.use(express.static("public"));
@@ -47,34 +44,6 @@ app.get("/about", (request, response) => {
 
 app.get("/api/sample-bins", (request, response) => {
   response.json(sampleData);
-});
-
-app.post("/api/bins", (request, response) => {
-  const binRequest = response.req.body;
-  // const aBin = new Bin({
-  //   type: binRequest["bin[type]"],
-  //   lng: binRequest["bin[lng]"],
-  //   lat: binRequest["bin[lat]"]
-  // });
-  Bin.create(
-    {
-      properties: binRequest["bin[type]"].toString(),
-      geometry: {
-        coordinates: {
-          type: [binRequest["bin[lng]"], binRequest["bin[lat]"]]
-        }
-      }
-    },
-    function(err, aBin) {
-      if (err) {
-        console.log("err", err);
-        return handleError(err);
-      }
-    }
-  );
-  console.log("bin type", response.req.body["bin[type]"]);
-  console.log("bin lng", response.req.body["bin[lng]"]);
-  console.log("bin lat", response.req.body["bin[lat]"]);
 });
 
 const unknownEndpoint = (request, response) => {
