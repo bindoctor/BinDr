@@ -165,6 +165,13 @@ $(document).ready(function() {
     })
   })
   $('#add-toggle').click(function(event) {
+    console.log(document.cookie)
+    if (document.cookie['Auth'] == "") {
+      window.location.replace('/login');
+    }
+    // get request (api/users/current)
+    //   if sueccesfful {}
+
     toggleAddBins()
     if(event.target.innerHTML === 'Add a bin') {
       event.target.innerHTML = 'Disable add mode'
