@@ -1,3 +1,4 @@
+
 var map = new mapboxgl.Map({
   container: 'map',
   style: 'mapbox://styles/bindr/cjxyplq2c064h1cmxgpyefs28',
@@ -13,53 +14,93 @@ const geoLocation = new mapboxgl.GeolocateControl({
   showUserLocation: true
 });
 
+map.on('styleimagemissing', async function(e) {
+  var id = e.id
+  console.log(id)
+  map.loadImage(id, (error, image) => {
+    console.log(image)
+    map.addImage(id, image)
+  })
+})
+
 map.on('load', async function () {
   geoLocation.trigger();
 
-  await map.loadImage('/map-markers/paper.png', (error, image) => map.addImage('/map-markers/paper.png', image));
-  await map.loadImage('/map-markers/plastic.png', (error, image) => map.addImage('/map-markers/plastic.png', image));
-  await map.loadImage('/map-markers/mixed.png', (error, image) => map.addImage('/map-markers/mixed.png', image));
-  await map.loadImage('/map-markers/glass.png', (error, image) => map.addImage('/map-markers/glass.png', image));
-
-  map.addSource('allBins', {
-    type: 'geojson',
-    data: '/api/bins'
-  });
-
-  map.addLayer({
-    "id": "points",
-    "type": "symbol",
-    "source": "allBins",
-    "layout": {
-      "icon-image": ['get','iconUrl', ['get', 'icon']],
-      "icon-size": 0.3
-    }
-  });
-
-  map.on('click', 'points', function (event) {
-    if (!addModeEnabled) {
-      new mapboxgl.Popup()
-      .setLngLat(event.lngLat)
-      .setHTML("<h3>" + event.features[0].properties.binTypeName + "</h3>" + "<p>" + event.lngLat + "</p>")
-      .addTo(map);
-    }
-
+  Promise.all([
+    new Promise((resolve, reject) => { 
+      map.loadImage('/map-markers/paper.png', (error, image) => {
+        map.addImage('/map-markers/paper.png', image)
+        resolve();
+      }) 
+    }),
+    new Promise((resolve, reject) => { 
+      map.loadImage('/map-markers/plastic.png', (error, image) => {
+        map.addImage('/map-markers/plastic.png', image)
+        resolve();
+      }) 
+    }),
+    new Promise((resolve, reject) => { 
+      map.loadImage('/map-markers/glass.png', (error, image) => {
+        map.addImage('/map-markers/glass.png', image)
+        resolve();
+      }) 
+    }),
+    new Promise((resolve, reject) => { 
+      map.loadImage('/map-markers/mixed.png', (error, image) => {
+        map.addImage('/map-markers/mixed.png', image)
+        resolve();
+      }) 
+    }),
+  ]).then(() => {
+    map.addSource('allBins', {
+      type: 'geojson',
+      data: '/api/bins'
     });
+  
+    map.addLayer({
+      "id": "points",
+      "type": "symbol",
+      "source": "allBins",
+      "layout": {
+        "icon-image": ['get','iconUrl', ['get', 'icon']],
+        "icon-size": 0.3
+      }
+    });
+  })
+  
+  // await map.loadImage('/map-markers/paper.png', (error, image) => map.addImage('/map-markers/paper.png', image));
+  // await map.loadImage('/map-markers/plastic.png', (error, image) => map.addImage('/map-markers/plastic.png', image));
+  // await map.loadImage('/map-markers/mixed.png', (error, image) => map.addImage('/map-markers/mixed.png', image));
+  // await map.loadImage('/map-markers/glass.png', (error, image) => map.addImage('/map-markers/glass.png', image));
 
-  // Change the cursor to a pointer when the mouse is over the states layer.
-  map.on('mouseenter', 'states-layer', function () {
-    map.getCanvas().style.cursor = 'pointer';
-  });
-   
-  // Change it back to a pointer when it leaves.
-  map.on('mouseleave', 'states-layer', function () {
-    map.getCanvas().style.cursor = '';
-  });
+
+  
+
+
      
 
 });
 
 map.addControl(geoLocation);
+
+map.on('click', 'points', function (event) {
+  if (!addModeEnabled) {
+    new mapboxgl.Popup()
+    .setLngLat(event.lngLat)
+    .setHTML("<h3>" + event.features[0].properties.binTypeName + "</h3>" + "<p>" + event.lngLat + "</p>")
+    .addTo(map);
+  }
+});
+
+// Change the cursor to a pointer when the mouse is over the states layer.
+map.on('mouseenter', 'states-layer', function () {
+  map.getCanvas().style.cursor = 'pointer';
+});
+ 
+// Change it back to a pointer when it leaves.
+map.on('mouseleave', 'states-layer', function () {
+  map.getCanvas().style.cursor = '';
+});
 
 
 let addModeEnabled = false
