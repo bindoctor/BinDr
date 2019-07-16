@@ -23,13 +23,12 @@ router.post("/", (request, response) => {
       console.log('Bin type not found')
       return response.status(422)
     }
-    console.log(binTypeID);
     Bin.create(
       {
         properties: binTypeID._id,
         geometry: {
           coordinates: [
-            Number(binRequest.bin.long),
+            Number(binRequest.bin.lng),
             Number(binRequest.bin.lat)
           ]
         }
@@ -38,10 +37,13 @@ router.post("/", (request, response) => {
         if (err) {
           return response.status(422)
         }
+        else {
+          return response.send("added");
+        }
       }
     );
   });
-  response.send("added");
+
 });
 
 module.exports = router;

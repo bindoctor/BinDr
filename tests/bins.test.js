@@ -18,14 +18,18 @@ describe('GET /', () => {
 describe("POST /", () => {
   test("200 response when bin created", () => {
     return api.post("/api/bins")
-      .send(
-        "bin%5Btype%5D=Mixed&bin%5Blng%5D=-0.10032049072933091&bin%5Blat%5D=51.53245665101659"
-      )
-      .set("Accept", "application/x-www-form-urlencoded; charset=UTF-8")
+      .send({
+        bin: {
+          type: 'Mixed',
+          lng: 0.09447038699008203,
+          lat: 51.528767194015444
+        }
+      })
+      .set("Accept", "application/json; charset=UTF-8")
       .expect(200, 'added');
   });
 
   test("", () => {
-    
+
   })
 });
