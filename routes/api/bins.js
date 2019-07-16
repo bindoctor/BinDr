@@ -18,23 +18,25 @@ router.get("/", (request, response) => {
 
 router.post("/", (request, response) => {
   const binRequest = request.body;
-  BinType.findOne({ binTypeName: binRequest["bin[type]"] }, "_id", function(
-    _err,
-    binTypeID
-  ) {
+  BinType.findOne({ binTypeName: binRequest.bin.type }, "_id", function(err, binTypeID) {
+    if(err) {
+      console.log('Bin type not found')
+      return response.status(422)
+    }
     console.log(binTypeID);
     Bin.create(
       {
         properties: binTypeID._id,
         geometry: {
           coordinates: [
-            Number(binRequest["bin[lng]"]),
-            Number(binRequest["bin[lat]"])
+            Number(binRequest.bin.long),
+            Number(binRequest.bin.lat)
           ]
         }
       },
       function(err) {
         if (err) {
+          return response.status(422)
         }
       }
     );

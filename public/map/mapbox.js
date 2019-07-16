@@ -151,13 +151,15 @@ $(document).ready(function() {
     $.ajax({
       type: "POST",
       url: `/api/bins`,
-      data: {
+      dataType: 'json',
+      contentType: 'application/json',
+      data: JSON.stringify({
         bin: {
           type: binType,
           lng: markerLngLat.lng,
           lat: markerLngLat.lat
         }
-      }
+      })
     })
     .done(function(result){
       refreshMapData()
