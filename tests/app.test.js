@@ -38,15 +38,4 @@ describe('/api/sample-bins', () => {
   });
 });
 
-describe('/api/bins', () => {
-  test('shows /api/bins page', () => {
-    return api.get('/api/bins').expect(200);
-  });
-  test('check /api/bins gives invalid geoJSON', async () => {
-    const response = await api.get('/api/bins');
-    expect(GJV.valid(response.body)).toBe(true);
-  });
-});
-
-
 

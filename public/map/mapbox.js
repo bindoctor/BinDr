@@ -1,6 +1,6 @@
 var map = new mapboxgl.Map({
-  container: 'map',
-  style: 'mapbox://styles/bindr/cjxyplq2c064h1cmxgpyefs28',
+  container: "map",
+  style: "mapbox://styles/bindr/cjxyplq2c064h1cmxgpyefs28",
   center: [-0.099207, 51.524531],
   zoom: 15
 });
@@ -13,7 +13,7 @@ const geoLocation = new mapboxgl.GeolocateControl({
   showUserLocation: true
 });
 
-map.on('load', async function () {
+map.on("load", async function() {
   geoLocation.trigger();
 
   Promise.all([
@@ -144,20 +144,22 @@ map.on('click', (event) => {
 // })
 
 $(document).ready(function() {
-  $('#submit-bin').click(function() {
-    markerLngLat = addBinMarker.getLngLat()
-    var binType = $("input:radio[name='bintype']:checked").attr('id');
+  $("#submit-bin").click(function() {
+    markerLngLat = addBinMarker.getLngLat();
+    var binType = $("input:radio[name='bintype']:checked").attr("id");
 
     $.ajax({
-      type: 'POST',
+      type: "POST",
       url: `/api/bins`,
-      data: {
+      dataType: 'json',
+      contentType: 'application/json',
+      data: JSON.stringify({
         bin: {
           type: binType,
           lng: markerLngLat.lng,
           lat: markerLngLat.lat
         }
-      }
+      })
     })
     .done(function(result){
       refreshMapData()
