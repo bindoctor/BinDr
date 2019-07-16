@@ -23,6 +23,5 @@ const binSchema = new mongoose.Schema({
   }
 });
 
-// mongoose.model("Bin", binSchema)
 
 module.exports = mongoose.model("Bin", binSchema);
