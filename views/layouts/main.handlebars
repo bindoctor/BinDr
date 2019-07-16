@@ -16,7 +16,8 @@
     <script>
         mapboxgl.accessToken = '{{mapboxKey}}';
     </script>
-
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="/login-register-handlers.js"></script>
     <title>binDr</title>
 </head>
 <body>
@@ -24,7 +25,8 @@
     <div class="container-fluid">
         <div class="navbar-header">
             <a class="navbar-brand" href="#"><img src="/logo.png" alt="BinDr"></a>
-            <button class="navbar-toggler float-xs-right" type="button" data-toggle="collapse" data-target="#navbarNavMine"
+            <button class="navbar-toggler float-xs-right" type="button" data-toggle="collapse"
+                    data-target="#navbarNavMine"
                     aria-controls="navbarNavMine" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
@@ -35,7 +37,7 @@
                     <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#">Features</a>
+                    <a class="nav-link" href="/login">Log In</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="#">Pricing</a>
