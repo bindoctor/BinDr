@@ -1,23 +1,26 @@
+<div class="no-height">
+  <button type="button" class="btn btn-light map-button" id="add-toggle">Add a bin</button>
+</div>
 <div id="map"></div>
 <pre id='add-box' class='add-box'>
   <div class="form-group inline-no-padding">
-    <div class="btn-group btn-group-toggle margin-right">
-      <label class="btn btn-secondary">
-        <input type="radio" name="bintype" id="mixed" autocomplete="off" checked>Mixed
+    <div class="btn-group btn-group-toggle margin-right" data-toggle="buttons">
+      <label class="btn btn-secondary active">
+        <input type="radio" name="bintype" id="Mixed" autocomplete="off" checked>Mixed
       </label>
       <label class="btn btn-secondary">
-        <input type="radio" name="bintype" id="glass" autocomplete="off">Glass
+        <input type="radio" name="bintype" id="Glass" autocomplete="off">Glass
       </label>
       <label class="btn btn-secondary">
-        <input type="radio" name="bintype" id="paper" autocomplete="off">Paper
+        <input type="radio" name="bintype" id="Paper" autocomplete="off">Paper
       </label>
        <label class="btn btn-secondary">
-        <input type="radio" name="bintype" id="plastic" autocomplete="off">Plastic
+        <input type="radio" name="bintype" id="Plastic" autocomplete="off">Plastic
       </label>
     </div>
   </div>
   <div class="form-group inline-no-padding">
-    <input type="submit" id="submit-bin" class="btn btn-primary margin-right" name="addBin" value="Add a new bin here 🚮"/>
+    <input type="submit" id="submit-bin" class="btn btn-primary margin-right" name="addBin" value="Add bin 🚮"/>
   </div>
 </pre>
 

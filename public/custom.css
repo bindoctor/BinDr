@@ -47,7 +47,7 @@ body {
 
 .container-fluid {
     padding: 0;
-  }
+}
 
 .error-template {padding: 40px 15px;text-align: center;}
 .error-actions {margin-top:15px;margin-bottom:15px;}
@@ -70,7 +70,7 @@ body {
 }
 
 #mapboxgl-mixed-bin-marker {
-  background-image: url('/map-markers/pin.png');
+  background-image: url('/map-markers/pin-new.png');
   background-size: cover;
   height: 50px;
   width: 50px;
@@ -92,13 +92,44 @@ body {
   font-size: 5px;
   border-radius: 3px;
   display: none;
-  }
+}
 
-  .inline-no-padding {
-    display: inline;
-    padding: 0;
-  }
+.inline-no-padding {
+  display: inline;
+  padding: 0;
+}
 
-  .margin-right {
-    margin-right: 25px;
-  }
+.margin-right {
+  margin-right: 25px;
+}
+
+.map-button {
+  position: absolute;
+  right: 0.5rem;
+  top: 3rem;
+  color: #2cace1;
+  background-color: #ffffff;
+  border-width: 2px;
+  border-color: rgba(0,0,0,0.1);
+  border-radius: 0.3rem;
+  z-index: 1050;
+}
+
+.map-button:hover {
+  color: #2cace1;
+  background-color: #f4f4f4;
+}
+
+.no-height {
+  height: 0;
+  position: relative;
+  top: 14%
+}
+
+.custom-navbar {
+  background-color: #EBEEED
+}
+
+.margin-right {
+  margin-right: 25px;
+}
