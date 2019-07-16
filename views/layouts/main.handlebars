@@ -13,7 +13,8 @@
         mapboxgl.accessToken = '{{mapboxKey}}';
     </script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-
+    <script type="text/javascript"
+            src="//cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.min.js"></script>
     <title>binDr</title>
 </head>
 <body>
@@ -26,6 +27,7 @@
                     aria-controls="navbarNavMine" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
+            <button id="testButton" type="submit" onclick="takeMeToProtectedUrl()">Click</button>
         </div>
         <div class="collapse navbar-collapse" id="navbarNavMine">
             <ul class="nav navbar-nav">
@@ -50,31 +52,50 @@
     {{{body}}}
 </div>
 <script>
-    $(document).ready(function () {
-        $(function () {
-            $('#loginForm').on('submit', function (event) {
+    $(document).ready(function() {
+        $(function() {
+            $('#loginForm').on('submit', function(event) {
                 event.preventDefault();
                 $.ajax({
                     url: '/api/users/login',
                     type: 'post',
                     contentType: 'application/json',
                     data: JSON.stringify({
-                        "user": {
-                            "email": document.getElementById('email').value,
-                            "password": document.getElementById('password').value
-                        }
+                        'user': {
+                            'email': document.getElementById('email').value,
+                            'password': document.getElementById('password').value,
+                        },
                     }),
                     success: function(response, error) {
-                      document.cookie = `Auth=${response.user.token}`;
-                      window.location.replace('/');
+                        document.cookie = `Auth=${response.user.token}`;
+                        window.location.replace('/');
                     },
                     error: function() {
-                      console.log("HELLO GEOFF IT WAS ERROR")
-                    }
+                        console.log('HELLO GEOFF IT WAS ERROR');
+                    },
                 });
             });
         });
     });
+
+    function takeMeToProtectedUrl() {
+        console.log(document.cookie);
+        $.ajax({
+            url: '/api/users/current',
+            type: 'get',
+            headers: {
+                'Authorization': 'Token ' + $.cookie('Auth'),
+            },
+            success: function(response, error) {
+                console.log('You are authorised!');
+                console.log(response);
+            },
+            error: function() {
+                console.log('HELLO GEOFF IT WAS ERROR');
+            },
+
+        });
+    }
 
 </script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
