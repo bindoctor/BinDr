@@ -25,7 +25,7 @@ map.on('load', async function () {
     type: 'geojson',
     data: '/api/bins'
   });
-
+  
   map.addLayer({
     "id": "points",
     "type": "symbol",
@@ -37,11 +37,15 @@ map.on('load', async function () {
   });
 
   map.on('click', 'points', function (e) {
-    new mapboxgl.Popup()
-    .setLngLat(e.lngLat)
-    .setHTML("<h3>" + e.features[0].properties.binTypeName + "</h3>" + "<p>" + e.lngLat + "</p>")
-    .addTo(map);
-    });
+  var geocoder = new MapboxClient({
+	    accessToken: mapboxgl.accessToken
+  });
+  
+  new mapboxgl.Popup()
+  .setLngLat(e.lngLat)
+  .setHTML("<h3>" + e.features[0].properties.binTypeName + "</h3>" + "<p>" + "Longitude: " + e.lngLat.lng.toFixed(5) + "<br>" + "Latitude: " + e.lngLat.lat.toFixed(5) + "</p>")
+  .addTo(map);
+  });
 
   // Change the cursor to a pointer when the mouse is over the states layer.
   map.on('mouseenter', 'states-layer', function () {
