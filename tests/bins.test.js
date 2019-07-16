@@ -41,4 +41,16 @@ describe("POST /", () => {
       .set("Accept", "application/json; charset=UTF-8")
       .expect(422);
   })
+  test("422 response when bad coordinates", () => {
+    return api.post("/api/bins")
+      .send({
+        bin: {
+          type: 'Glass',
+          lng: 'Hello',
+          lat: 51.528767194015444
+        }
+      })
+      .set("Accept", "application/json; charset=UTF-8")
+      .expect(422);
+  })
 });
