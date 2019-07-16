@@ -109,3 +109,7 @@ body {
   position: relative;
   top: 14%
 }
+
+.custom-navbar {
+  background-color: #EBEEED
+}
