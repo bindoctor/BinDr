@@ -53,6 +53,22 @@ body {
 .error-actions {margin-top:15px;margin-bottom:15px;}
 .error-actions .btn { margin-right:10px; }
 
+.card {
+    width: 300px;
+}
+
+.nav-item .nav-link[disabled]:hover {
+
+}
+
+#login-background {
+    background: url(https://images.pexels.com/photos/802221/pexels-photo-802221.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260) no-repeat center center fixed;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+}
+
 #mapboxgl-mixed-bin-marker {
   background-image: url('/map-markers/pin-new.png');
   background-size: cover;
@@ -112,4 +128,8 @@ body {
 
 .custom-navbar {
   background-color: #EBEEED
+}
+
+.margin-right {
+  margin-right: 25px;
 }
