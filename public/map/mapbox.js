@@ -41,6 +41,13 @@ map.on('load', async function () {
 	    accessToken: mapboxgl.accessToken
   });
   
+  // geocoder.geocodeReverse({
+  //   latitude: e.lngLat.lat, 
+  //   longitude: e.lngLat.lng
+  // },{ types: 'address', limit: 1 }, function(err, res) {
+  //   console.log(err, res)
+  // });
+  // console.log(e.features[0])
   new mapboxgl.Popup()
   .setLngLat(e.lngLat)
   .setHTML("<h3>" + e.features[0].properties.binTypeName + "</h3>" + "<p>" + "Longitude: " + e.lngLat.lng.toFixed(5) + "<br>" + "Latitude: " + e.lngLat.lat.toFixed(5) + "</p>")
