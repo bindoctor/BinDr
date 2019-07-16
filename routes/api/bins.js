@@ -35,12 +35,11 @@ router.post("/", (request, response) => {
       },
       function(err) {
         if (err) {
-          
         }
       }
     );
   });
-  response.send('added');
+  response.send("added");
 });
 
 module.exports = router;
