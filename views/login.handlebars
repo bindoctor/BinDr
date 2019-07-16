@@ -42,23 +42,17 @@
                 </div>
 
                 <div class="tab-pane fade" id="pills-register" role="tabpanel" aria-labelledby="pills-register-tab">
-                    <form>
+                    <form id="signupForm">
                         <div class="form-group">
-                            <input type="text" name="username" id="name" class="form-control" placeholder="Username" required autofocus>
+                            <input type="email" name="signup-email" id="signup-email" class="form-control" placeholder="Email" required>
                         </div>
-
                         <div class="form-group">
-                            <input type="email" name="email" id="email" class="form-control" placeholder="Email" required>
+                            <input type="password" name="signup-password" id="signup-password" class="form-control" placeholder="Set a password" required>
                         </div>
-
+<!--                        This is not actually doing any password validation, please add some! -->
                         <div class="form-group">
-                            <input type="password" name="password" id="password" class="form-control" placeholder="Set a password" required>
+                            <input type="password" name="password_confirmation" id="signup-password-confirm" class="form-control" placeholder="Confirm password" required>
                         </div>
-
-                        <div class="form-group">
-                            <input type="password" name="password_confirmation" id="password-confirm" class="form-control" placeholder="Confirm password" required>
-                        </div>
-
                         <div class="text-center pt-2 pb-1">
                             <button type="submit" class="btn btn-primary">Register</button>
                         </div>
