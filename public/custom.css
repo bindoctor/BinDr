@@ -61,7 +61,7 @@ body {
 
 }
 
-body {
+#login-background {
     background: url('https://images.unsplash.com/photo-1534408679207-69b9615e55a7?ixlib=rb-0.3.5&q=80&fm=jpg&crop=entropy&cs=tinysrgb&w=1080&fit=max&s=cfbabd80cd2d5cae495a2a732d473562') no-repeat center center fixed;
     -webkit-background-size: cover;
     -moz-background-size: cover;
