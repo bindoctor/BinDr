@@ -1,4 +1,3 @@
-
 var map = new mapboxgl.Map({
   container: 'map',
   style: 'mapbox://styles/bindr/cjxyplq2c064h1cmxgpyefs28',
@@ -13,15 +12,6 @@ const geoLocation = new mapboxgl.GeolocateControl({
   trackUserLocation: true,
   showUserLocation: true
 });
-
-map.on('styleimagemissing', async function(e) {
-  var id = e.id
-  console.log(id)
-  map.loadImage(id, (error, image) => {
-    console.log(image)
-    map.addImage(id, image)
-  })
-})
 
 map.on('load', async function () {
   geoLocation.trigger();
@@ -135,6 +125,9 @@ function hideAddMarker() {
   addBinMarker.remove()
 }
 
+function refreshMapData() {
+  map.getSource('allBins').setData('/api/bins');
+}
 
 map.on('click', (event) => {
   if(addModeEnabled) {
@@ -167,7 +160,8 @@ $(document).ready(function() {
       }
     })
     .done(function(result){
-      callback(result)
+      refreshMapData()
+      toggleAddBins()
     })
   })
   $('#add-toggle').click(function(event) {
