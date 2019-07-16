@@ -37,10 +37,13 @@ map.on('load', async function () {
   });
 
   map.on('click', 'points', function (event) {
-    new mapboxgl.Popup()
-    .setLngLat(event.lngLat)
-    .setHTML("<h3>" + event.features[0].properties.binTypeName + "</h3>" + "<p>" + event.lngLat + "</p>")
-    .addTo(map);
+    if (!addModeEnabled) {
+      new mapboxgl.Popup()
+      .setLngLat(event.lngLat)
+      .setHTML("<h3>" + event.features[0].properties.binTypeName + "</h3>" + "<p>" + event.lngLat + "</p>")
+      .addTo(map);
+    }
+
     });
 
   // Change the cursor to a pointer when the mouse is over the states layer.
@@ -58,25 +61,65 @@ map.on('load', async function () {
 
 map.addControl(geoLocation);
 
+
+let addModeEnabled = false
+
 let addBinMarker;
 
-map.on('click', (event) => {
-  if(!addBinMarker) {
-    var marker = document.createElement('div');
-    marker.id = 'mapboxgl-mixed-bin-marker';
-  
-    addBinMarker = new mapboxgl.Marker({draggable: true, element: marker})
-        .setLngLat(event.lngLat)
-        .addTo(map);
 
-    let addBox = document.getElementById('add-box')
-    addBox.style.display = 'block';
-        
+function toggleAddBins() {
+  if(addModeEnabled) {
+    hideAddBox()
+    hideAddMarker()
+    addModeEnabled = false
   } else {
-    addBinMarker.setLngLat(event.lngLat)
+    showAddBox()
+    showAddMarker()
+    addModeEnabled = true
   }
+}
 
+function showAddBox() {
+  getAddBox().style.display = 'block';
+}
+
+function getAddBox() {
+ return document.getElementById('add-box')
+
+}
+
+function hideAddBox() {
+  getAddBox().style.display = 'none';
+}
+
+function showAddMarker() {
+  var marker = document.createElement('div');
+  marker.id = 'mapboxgl-mixed-bin-marker';
+
+  addBinMarker = new mapboxgl.Marker({draggable: true, element: marker})
+      .setLngLat(map.getCenter())
+      .addTo(map);
+
+}
+
+function hideAddMarker() {
+  addBinMarker.remove()
+}
+
+
+map.on('click', (event) => {
+  if(addModeEnabled) {
+    addBinMarker.setLngLat(event.lngLat)
+  } 
 });
+
+// map.on('contextmenu', (event) => {
+//   console.log('contextmenu')
+//   if (addBox.style.display = 'block') {
+//     addBox.style.display = 'hidden'
+//   } else { addBox.style.display = 'block' }
+
+// })
 
 $(document).ready(function() {
   $('#submit-bin').click(function() {
@@ -97,5 +140,13 @@ $(document).ready(function() {
     .done(function(result){
       callback(result)
     })
+  })
+  $('#add-toggle').click(function(event) {
+    toggleAddBins()
+    if(event.target.innerHTML === 'Add a bin') {
+      event.target.innerHTML = 'Disable add mode'
+    } else {
+      event.target.innerHTML ='Add a bin' 
+    }
   })
 })
