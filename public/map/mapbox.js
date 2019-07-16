@@ -67,18 +67,6 @@ map.on('load', async function () {
       }
     });
   })
-  
-  // await map.loadImage('/map-markers/paper.png', (error, image) => map.addImage('/map-markers/paper.png', image));
-  // await map.loadImage('/map-markers/plastic.png', (error, image) => map.addImage('/map-markers/plastic.png', image));
-  // await map.loadImage('/map-markers/mixed.png', (error, image) => map.addImage('/map-markers/mixed.png', image));
-  // await map.loadImage('/map-markers/glass.png', (error, image) => map.addImage('/map-markers/glass.png', image));
-
-
-  
-
-
-     
-
 });
 
 map.addControl(geoLocation);

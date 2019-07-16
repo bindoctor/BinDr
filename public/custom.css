@@ -54,7 +54,7 @@ body {
 .error-actions .btn { margin-right:10px; }
 
 #mapboxgl-mixed-bin-marker {
-  background-image: url('/map-markers/pin.png');
+  background-image: url('/map-markers/pin-new.png');
   background-size: cover;
   height: 50px;
   width: 50px;
