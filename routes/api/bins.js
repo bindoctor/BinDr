@@ -18,32 +18,32 @@ router.get("/", (request, response) => {
 
 router.post("/", (request, response) => {
   const binRequest = request.body;
-  BinType.findOne({ binTypeName: binRequest.bin.type }, "_id", function(err, binTypeID) {
-    if(err) {
+  BinType.findOne({ binTypeName: binRequest.bin.type }, "_id", function(err, binType) {
+    if(err || !binType) {
       console.log('Bin type not found')
-      return response.status(422)
-    }
-    Bin.create(
-      {
-        properties: binTypeID._id,
-        geometry: {
-          coordinates: [
-            Number(binRequest.bin.lng),
-            Number(binRequest.bin.lat)
-          ]
+      response.status(422).send('Bin type not found')
+    } else {
+      console.log(binType);
+      Bin.create(
+        {
+          properties: binType._id,
+          geometry: {
+            coordinates: [
+              Number(binRequest.bin.lng),
+              Number(binRequest.bin.lat)
+            ]
+          }
+        },
+        function(err) {
+          if (err) {
+            response.status(422).send('Writing bin failed')
+          } else {
+            response.send("added");
+          }
         }
-      },
-      function(err) {
-        if (err) {
-          return response.status(422)
-        }
-        else {
-          return response.send("added");
-        }
-      }
-    );
+      )
+    };
   });
-
 });
 
 module.exports = router;

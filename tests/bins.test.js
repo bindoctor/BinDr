@@ -29,7 +29,16 @@ describe("POST /", () => {
       .expect(200, 'added');
   });
 
-  test("", () => {
-
+  test("422 response when bin type not valid", () => {
+    return api.post("/api/bins")
+      .send({
+        bin: {
+          type: 'asdf',
+          lng: 0.09447038699008203,
+          lat: 51.528767194015444
+        }
+      })
+      .set("Accept", "application/json; charset=UTF-8")
+      .expect(422);
   })
 });
