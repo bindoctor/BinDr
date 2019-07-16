@@ -18,7 +18,6 @@ router.get("/", (request, response) => {
 
 router.post("/", (request, response) => {
   const binRequest = request.body;
-  console.log(binRequest["bin[type]"].toString());
   BinType.findOne({ binTypeName: binRequest["bin[type]"] }, "_id", function(
     _err,
     binTypeID
@@ -36,12 +35,12 @@ router.post("/", (request, response) => {
       },
       function(err) {
         if (err) {
-          console.log("err", err);
-          // return handleError(err);
+          
         }
       }
     );
   });
+  response.send('added');
 });
 
 module.exports = router;

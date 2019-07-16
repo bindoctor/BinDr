@@ -47,6 +47,3 @@ describe('/api/bins', () => {
     expect(GJV.valid(response.body)).toBe(true);
   });
 });
-
-
-
