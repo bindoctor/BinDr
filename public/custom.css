@@ -161,3 +161,8 @@ body {
 .navbar-header {
   padding: 0
 }
+
+.navbar-nav .nav-link {
+  text-align: right;
+  /* padding: 10px; */
+}
