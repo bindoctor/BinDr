@@ -21,25 +21,25 @@ map.on("load", async function() {
       map.loadImage('/map-markers/paper.png', (error, image) => {
         map.addImage('/map-markers/paper.png', image)
         resolve();
-      })
+      });
     }),
     new Promise((resolve, reject) => {
       map.loadImage('/map-markers/plastic.png', (error, image) => {
         map.addImage('/map-markers/plastic.png', image)
         resolve();
-      })
+      });
     }),
     new Promise((resolve, reject) => {
       map.loadImage('/map-markers/glass.png', (error, image) => {
         map.addImage('/map-markers/glass.png', image)
         resolve();
-      })
+      });
     }),
     new Promise((resolve, reject) => {
       map.loadImage('/map-markers/mixed.png', (error, image) => {
         map.addImage('/map-markers/mixed.png', image)
         resolve();
-      })
+      });
     }),
   ]).then(() => {
     map.addSource('allBins', {
@@ -56,7 +56,7 @@ map.on("load", async function() {
         "icon-size": 0.3
       }
     });
-  })
+  });
 });
 
 map.addControl(geoLocation);
@@ -80,7 +80,6 @@ async function getAddress(lat, long) {
   return address
 }
 
-
 map.on('click', 'points', function(event) {
   if (!addModeEnabled) {
     new mapboxgl.Popup()
@@ -103,7 +102,6 @@ map.on('click', 'points', function(event) {
     });
   }
 });
-
 
 function startDirections(lng,lat) {
   console.log(lng,lat)
@@ -129,11 +127,9 @@ map.on('mouseleave', 'states-layer', function () {
   map.getCanvas().style.cursor = '';
 });
 
-
 let addModeEnabled = false
 
 let addBinMarker;
-
 
 function toggleAddBins() {
 
@@ -215,10 +211,22 @@ $(document).ready(function() {
     .done(function(result){
       refreshMapData()
       toggleAddBins()
-    })
-  })
+    });
+  });
 
   $('#add-toggle').click(function(event) {
-    toggleAddBins()
-  })
-})
+    $.ajax({
+      url: '/api/users/current',
+      type: 'get',
+      headers: {
+        Authorization: 'Token ' + $.cookie('Auth')
+      },
+      success: function(response, error) {
+        toggleAddBins();
+      },
+      error: function() {
+        window.location.replace('/login');
+      }
+    });
+  });
+});
