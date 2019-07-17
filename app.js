@@ -1,5 +1,5 @@
-const express = require('express');
-const expressHandlebars = require('express-handlebars');
+const express = require("express");
+const expressHandlebars = require("express-handlebars");
 const app = express();
 const sampleData = require('./sampleData');
 const bodyParser = require('body-parser');
@@ -36,8 +36,8 @@ app.get('/', (request, response) => {
   response.render('home');
 });
 
-app.get('/about', (request, response) => {
-  response.render('about');
+app.get("/about", (request, response) => {
+  response.render("about");
 });
 
 app.get('/login', (request, response) => {
@@ -48,9 +48,8 @@ app.get('/api/sample-bins', (request, response) => {
   response.json(sampleData);
 });
 
-
 const unknownEndpoint = (request, response) => {
-  response.status(404).render('404');
+  response.status(404).render("404");
 };
 
 app.use(unknownEndpoint);

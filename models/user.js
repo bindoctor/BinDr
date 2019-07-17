@@ -1,11 +1,15 @@
 const mongoose = require('mongoose');
 const crypto = require('crypto');
 const jwt = require('jsonwebtoken');
+const uniqueValidation = require('mongoose-unique-validator')
 
 const { Schema } = mongoose;
 
 const UsersSchema = new Schema({
-  email: String,
+  email: {
+    type: String,
+    unique: true
+  },
   hash: String,
   salt: String,
 });
@@ -39,5 +43,7 @@ UsersSchema.methods.toAuthJSON = function() {
     token: this.generateJWT(),
   };
 };
+
+UsersSchema.plugin(uniqueValidation)
 
 module.exports = mongoose.model('User', UsersSchema);
