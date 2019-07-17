@@ -61,14 +61,38 @@ map.on("load", async function() {
 
 map.addControl(geoLocation);
 
+var mapboxClient = mapboxSdk({ accessToken: mapboxgl.accessToken });
+
+async function getAddress(lat, long) {
+  let address
+  await mapboxClient.geocoding.reverseGeocode({
+    query: [lat, long],
+    limit: 1
+  })
+    .send()
+    .then(response => {
+      if (response.body.features.length > 0) {
+        address = (response.body.features[0].place_name)
+      } else {
+        address = "No address found"
+      }
+    })
+  return address
+}
+
+
 map.on('click', 'points', function (event) {
   if (!addModeEnabled) {
-    new mapboxgl.Popup()
-    .setLngLat(event.lngLat)
-    .setHTML("<h3>" + event.features[0].properties.binTypeName + "</h3>" + "<p>" + event.lngLat + "</p>")
-    .addTo(map);
+    type = event.features[0].properties.binTypeName
+    getAddress(event.lngLat.lng, event.lngLat.lat).then((address) => {
+      new mapboxgl.Popup()
+      .setLngLat(event.lngLat)  
+      .setHTML("<h3>" + type + "</h3>" + "<h4> Address </h4>" + "<p>" + address + "</p>")
+      .addTo(map);
+    })
   }
 });
+
 
 // Change the cursor to a pointer when the mouse is over the states layer.
 map.on('mouseenter', 'states-layer', function () {
@@ -87,14 +111,17 @@ let addBinMarker;
 
 
 function toggleAddBins() {
+
   if(addModeEnabled) {
     hideAddBox()
     hideAddMarker()
     addModeEnabled = false
+    $('#add-toggle').html('Add a bin')
   } else {
     showAddBox()
     showAddMarker()
     addModeEnabled = true
+    $('#add-toggle').html('Disable add mode')
   }
 }
 
@@ -151,7 +178,6 @@ $(document).ready(function() {
     $.ajax({
       type: "POST",
       url: `/api/bins`,
-      dataType: 'json',
       contentType: 'application/json',
       data: JSON.stringify({
         bin: {
@@ -166,12 +192,8 @@ $(document).ready(function() {
       toggleAddBins()
     })
   })
+
   $('#add-toggle').click(function(event) {
     toggleAddBins()
-    if(event.target.innerHTML === 'Add a bin') {
-      event.target.innerHTML = 'Disable add mode'
-    } else {
-      event.target.innerHTML ='Add a bin' 
-    }
   })
 })
