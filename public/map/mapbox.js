@@ -119,6 +119,10 @@ function startDirections(lng,lat) {
   directions.setOrigin([geoLocation._lastKnownPosition.coords.longitude, geoLocation._lastKnownPosition.coords.latitude])
   directions.setDestination([lng, lat])
   map.addControl(directions);
+  $("#container-with-buttons").append("<br><button type=\"button\" class=\"btn btn-light map-button\" id=\"remove-directions\">Remove directions</button>");
+  $('#remove-directions').click(function(event) {
+    map.removeControl(directions)
+  })
 }
 
 // Change the cursor to a pointer when the mouse is over the states layer.
@@ -223,7 +227,5 @@ $(document).ready(function() {
   $('#add-toggle').click(function(event) {
     toggleAddBins()
   })
-  $('#remove-directions').click(function(event) {
-    map.removeControl(directions)
-  })
+
 })
