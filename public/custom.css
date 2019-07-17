@@ -151,9 +151,7 @@ body {
 
 .navbar-toggler {
   border: 0;
-  /* margin-top: 11px; */
-  padding: 25px 0;
-  padding-right: 10px;
+  padding: 25px 10px;
 }
 
 .navbar-toggler:focus, .navbar-toggler:active {
