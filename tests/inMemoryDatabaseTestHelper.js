@@ -4,7 +4,7 @@ const Bin = require('../models/bin');
 const BinType = require('../models/binType');
 const User = require('../models/user');
 const data = require('../tests/testData.js');
-
+const Users = mongoose.model('User');
 
 
 beforeAll(async () => {
@@ -27,4 +27,14 @@ beforeEach(async () => {
   await BinType.insertMany(data.binTypes);
   await Bin.insertMany(data.bins);
   await User.deleteMany({});
+
+  let user = {
+    user: {
+      email: "test@test.com",
+      password: "test123"
+    }
+  };
+  const finalUser = new Users(user.user);
+  finalUser.setPassword(user.user.password);
+  const userSaved = await finalUser.save();
 });
