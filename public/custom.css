@@ -104,15 +104,20 @@ body {
 }
 
 .map-button {
-  position: absolute;
-  right: 0.5rem;
-  top: 3rem;
   color: #2cace1;
   background-color: #ffffff;
   border-width: 2px;
   border-color: rgba(0,0,0,0.1);
   border-radius: 0.3rem;
-  z-index: 1050;
+    float: right;
+
+}
+
+.buttons-on-map {
+    position: absolute;
+    z-index: 1;
+    right: 0.5rem;
+    top: 5.5rem;
 }
 
 .map-button:hover {

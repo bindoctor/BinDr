@@ -59,7 +59,7 @@ map.on("load", async function() {
   })
 });
 
-map.addControl(geoLocation);
+map.addControl(geoLocation, 'top-left');
 
 var mapboxClient = mapboxSdk({ accessToken: mapboxgl.accessToken });
 
