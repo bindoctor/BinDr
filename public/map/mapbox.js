@@ -83,7 +83,6 @@ async function getAddress(lat, long) {
 
 map.on('click', 'points', function (event) {
   if (!addModeEnabled) {
-    console.log(event)
     type = event.features[0].properties.binTypeName
     getAddress(event.lngLat.lng, event.lngLat.lat).then((address) => {
       new mapboxgl.Popup()
