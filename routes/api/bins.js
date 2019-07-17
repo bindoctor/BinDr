@@ -27,7 +27,7 @@ router.post("/", (request, response) => {
       console.log(binType);
       Bin.create(
         {
-          properties: binType._id,
+          properties: {binType: binType._id},
           geometry: {
             coordinates: [
               Number(binRequest.bin.lng),

@@ -91,6 +91,7 @@ map.on('click', 'points', function(event) {
   const binLat = clickedPoint.geometry.coordinates[1]
   const binType = JSON.parse(clickedPoint.properties.binType).binTypeName
   const binId = clickedPoint.properties.binId
+  console.log(binId)
   if (!addModeEnabled) {
     getAddress(binLng, binLat).then((address) => {
       new mapboxgl.Popup()
@@ -102,7 +103,7 @@ map.on('click', 'points', function(event) {
           <p>${address}</p>
           <br>
           <button type="button" class="btn btn-primary" id="directions" onclick="startDirections(${event.lngLat.lng.toFixed(5)},${event.lngLat.lat.toFixed(5)})">Directions</button>
-          <button type="button" class="btn btn-danger" id="delete" onclick="deleteBin(${binLng},${binLat})">Delete</button>\
+          <button type="button" class="btn btn-danger" id="delete" onclick="deleteBin('${binId}')">Delete</button>
           `,
         )
         .addTo(map);
@@ -110,15 +111,14 @@ map.on('click', 'points', function(event) {
   }
 });
 
-function deleteBin(binLng, binLat) {
-  console.log(binLng + ' - ' + binLat)
+function deleteBin(deleteId) {
   $.ajax({
     type: "DELETE",
     url: `/api/bins`,
     contentType: 'application/json',
     data: JSON.stringify({
       bin: {
-        id: binId,
+        id: deleteId,
       }
     })
   })
