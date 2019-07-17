@@ -83,7 +83,9 @@ function startDirections(lng,lat) {
   console.log(lng,lat)
   var directions = new MapboxDirections(({
     accessToken: mapboxgl.accessToken,
-    controls: {inputs: false},
+    interactive: false,
+    zoom: 200,
+    controls: {inputs: false, instructions: false},
     profile: 'mapbox/walking'
     }), 'top-left');
   directions.setOrigin([geoLocation._lastKnownPosition.coords.longitude, geoLocation._lastKnownPosition.coords.latitude])
