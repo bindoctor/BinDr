@@ -199,6 +199,9 @@ $(document).ready(function() {
     $.ajax({
       type: "POST",
       url: `/api/bins`,
+      headers: {
+        Authorization: 'Token ' + $.cookie('Auth')
+      },
       contentType: 'application/json',
       data: JSON.stringify({
         bin: {
