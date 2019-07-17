@@ -82,27 +82,49 @@ async function getAddress(lat, long) {
 
 
 map.on('click', 'points', function(event) {
+  console.log(event)
+  const clickedPoint = event.features[0]
+  console.log(clickedPoint)
   if (!addModeEnabled) {
     new mapboxgl.Popup()
       .setLngLat(event.lngLat)
-
       .addTo(map);
-    type = event.features[0].properties.binTypeName;
+
     getAddress(event.lngLat.lng, event.lngLat.lat).then((address) => {
       new mapboxgl.Popup()
         .setLngLat(event.lngLat)
         .setHTML(
           `
-          <h3> ${type} </h3>
-          <p>Longitude: ${event.lngLat.lng.toFixed(5)} <br> Latitude: ${event.lngLat.lat.toFixed(5)} </p>
+          <h3> ${clickedPoint.properties.binTypeName} </h3>
+          <h5>Address:</h4> 
+          <p>${address}</p>
           <br>
           <button type="button" class="btn btn-primary" id="directions" onclick="startDirections(${event.lngLat.lng.toFixed(5)},${event.lngLat.lat.toFixed(5)})">Directions</button>
-           `,
+          <button type="button" class="btn btn-danger" id="delete" onclick="deleteBin(${event.lngLat.lng},${event.lngLat.lat})">Delete</button>\
+          `,
         )
         .addTo(map);
     });
   }
 });
+
+function deleteBin(binLng, binLat) {
+  console.log(binLng + ' - ' + binLat)
+  $.ajax({
+    type: "DELETE",
+    url: `/api/bins`,
+    contentType: 'application/json',
+    data: JSON.stringify({
+      bin: {
+        lng: binLng,
+        lat: binLat
+      }
+    })
+  })
+  .done(function(result){
+    refreshMapData()
+  })
+}
 
 
 function startDirections(lng,lat) {
