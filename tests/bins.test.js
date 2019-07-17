@@ -83,7 +83,6 @@ describe('DELETE /', function() {
   beforeEach((done) => {
    Bin.findOne({}, (err, result) => {
       addedId = result._id
-      console.log(addedId)
       done()
     })
   });
@@ -91,6 +90,7 @@ describe('DELETE /', function() {
   test("200 response when bin deleted", () => {
 
     return api.delete("/api/bins")
+      .set("Authorization", `Token ${token}`)
       .send({
         bin: {
           id: addedId
@@ -101,6 +101,7 @@ describe('DELETE /', function() {
 
   test("400 response when bin doesn't exist", () => {
     return api.delete("/api/bins")
+      .set("Authorization", `Token ${token}`)
       .send({
         bin: {
           id: 'nope'
@@ -111,11 +112,22 @@ describe('DELETE /', function() {
 
   test("409 response when invalid query", () => {
     return api.delete("/api/bins")
+      .set("Authorization", `Token ${token}`)
       .send({
         bin: {
           hello: 'goodbye'
         }
       })
       .expect(409)
+  })
+
+  test("401 response when unauthorised", () => {
+    return api.delete("/api/bins")
+      .send({
+        bin: {
+          id: addedId
+        }
+      })
+      .expect(401)
   })
 })

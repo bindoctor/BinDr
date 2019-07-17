@@ -46,7 +46,7 @@ router.post("/", auth.required, (request, response) => {
   });
 });
 
-router.delete("/", (request, response) => {
+router.delete("/", auth.required, (request, response) => {
   binId = request.body.bin.id
 
   Bin.deleteMany({

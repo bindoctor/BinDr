@@ -1,4 +1,5 @@
 let directions
+let theBox
 
 var map = new mapboxgl.Map({
   container: "map",
@@ -95,7 +96,7 @@ map.on('click', 'points', function(event) {
   console.log(binId)
   if (!addModeEnabled) {
     getAddress(binLng, binLat).then((address) => {
-      new mapboxgl.Popup()
+      theBox = new mapboxgl.Popup()
         .setLngLat({lng: binLng, lat: binLat})
         .setHTML(
           `
@@ -114,18 +115,37 @@ map.on('click', 'points', function(event) {
 
 function deleteBin(deleteId) {
   $.ajax({
-    type: "DELETE",
-    url: `/api/bins`,
-    contentType: 'application/json',
-    data: JSON.stringify({
-      bin: {
-        id: deleteId,
-      }
-    })
-  })
-  .done(function(result){
-    refreshMapData()
-  })
+    url: '/api/users/current',
+    type: 'get',
+    headers: {
+      Authorization: 'Token ' + $.cookie('Auth')
+    },
+    success: function(response, error) {
+      $.ajax({
+        type: "DELETE",
+        url: `/api/bins`,
+        headers: {
+          Authorization: 'Token ' + $.cookie('Auth')
+        },
+        contentType: 'application/json',
+        data: JSON.stringify({
+          bin: {
+            id: deleteId,
+          }
+        })
+      })
+      .done(function(result){
+        refreshMapData()
+        theBox.remove()
+      })
+    },
+    error: function() {
+      window.location.replace('/login');
+    }
+  });
+
+
+  
 }
 
 
