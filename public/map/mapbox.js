@@ -52,7 +52,7 @@ map.on("load", async function() {
       "type": "symbol",
       "source": "allBins",
       "layout": {
-        "icon-image": ['get','iconUrl', ['get', 'icon']],
+        "icon-image": ['get', 'iconUrl', ['get', 'icon', ['get', 'binType']]],
         "icon-size": 0.3
       }
     });
@@ -82,25 +82,27 @@ async function getAddress(lat, long) {
 
 
 map.on('click', 'points', function(event) {
-  console.log(event)
+  // console.log(event)
   const clickedPoint = event.features[0]
   console.log(clickedPoint)
+  // console.log(clickedPoint.geometry.coordinates)
+  console.log(event.lngLat)
+  const binLng = clickedPoint.geometry.coordinates[0]
+  const binLat = clickedPoint.geometry.coordinates[1]
+  const binType = JSON.parse(clickedPoint.properties.binType).binTypeName
+  const binId = clickedPoint.properties.binId
   if (!addModeEnabled) {
-    new mapboxgl.Popup()
-      .setLngLat(event.lngLat)
-      .addTo(map);
-
-    getAddress(event.lngLat.lng, event.lngLat.lat).then((address) => {
+    getAddress(binLng, binLat).then((address) => {
       new mapboxgl.Popup()
-        .setLngLat(event.lngLat)
+        .setLngLat({lng: binLng, lat: binLat})
         .setHTML(
           `
-          <h3> ${clickedPoint.properties.binTypeName} </h3>
+          <h3> ${binType} </h3>
           <h5>Address:</h4> 
           <p>${address}</p>
           <br>
           <button type="button" class="btn btn-primary" id="directions" onclick="startDirections(${event.lngLat.lng.toFixed(5)},${event.lngLat.lat.toFixed(5)})">Directions</button>
-          <button type="button" class="btn btn-danger" id="delete" onclick="deleteBin(${event.lngLat.lng},${event.lngLat.lat})">Delete</button>\
+          <button type="button" class="btn btn-danger" id="delete" onclick="deleteBin(${binLng},${binLat})">Delete</button>\
           `,
         )
         .addTo(map);
@@ -116,8 +118,7 @@ function deleteBin(binLng, binLat) {
     contentType: 'application/json',
     data: JSON.stringify({
       bin: {
-        lng: binLng,
-        lat: binLat
+        id: binId,
       }
     })
   })

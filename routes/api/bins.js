@@ -3,10 +3,10 @@ const mongoose = require("mongoose");
 const Bin = mongoose.model("Bin");
 const BinType = mongoose.model("BinType");
 
-
+// { geometry: 1, type: 1, _id: 0, properties: 1 }
 router.get("/", (request, response) => {
-  Bin.find({}, { geometry: 1, type: 1, _id: 0, properties: 1 })
-    .populate("properties")
+  Bin.find({}, { geometry: 1, type: 1, properties: 1})
+    .populate('properties.binType')
     .exec(function(err, bins) {
       // if (err) return err
       const binsCollection = {
@@ -52,10 +52,14 @@ router.delete("/", (request, response) => {
   lat = request.body.bin.lat
   console.log([lng, lat])
 
-  Bin.findOne({}, (err, result) => {
-    console.log(result)
-  })
-  
+  // Bin.findOne({geometry: {
+  //   type: 'Point',
+  //   coordinates: [-0.09634240078182188 - 51.52529864865096]
+  // }}, (err, result) => {
+  //   console.log(result)
+  // })
+
+
   Bin.deleteMany({
     geometry: {
       type: 'Point',
