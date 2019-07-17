@@ -6,6 +6,22 @@ const Bin = require('../models/bin')
 
 require('./inMemoryDatabaseTestHelper');
 
+let token;
+beforeAll(function(done) {
+  api.post('/api/users')
+    .send({
+      user :{
+        email : "test@test.com",
+        password : "test123"
+      }
+    })
+    .end(function(err, res) {
+      if (err) throw err;
+      token = res.body.user.token;
+      done();
+    });
+});
+
 describe('GET /', () => {
   test('shows /api/bins page', () => {
     return api.get('/api/bins').expect(200);
@@ -27,6 +43,7 @@ describe("POST /", () => {
         }
       })
       .set("Accept", "application/json; charset=UTF-8")
+      .set("Authorization", `Token ${token}`)
       .expect(200, 'added');
   });
 
@@ -40,8 +57,10 @@ describe("POST /", () => {
         }
       })
       .set("Accept", "application/json; charset=UTF-8")
+      .set("Authorization", `Token ${token}`)
       .expect(422);
-  })
+  });
+
   test("422 response when bad coordinates", () => {
     return api.post("/api/bins")
       .send({
@@ -52,6 +71,7 @@ describe("POST /", () => {
         }
       })
       .set("Accept", "application/json; charset=UTF-8")
+      .set("Authorization", `Token ${token}`)
       .expect(422);
   })
 });

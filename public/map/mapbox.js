@@ -1,3 +1,5 @@
+let directions
+
 var map = new mapboxgl.Map({
   container: "map",
   style: "mapbox://styles/bindr/cjxyplq2c064h1cmxgpyefs28",
@@ -21,25 +23,25 @@ map.on("load", async function() {
       map.loadImage('/map-markers/paper.png', (error, image) => {
         map.addImage('/map-markers/paper.png', image)
         resolve();
-      })
+      });
     }),
     new Promise((resolve, reject) => {
       map.loadImage('/map-markers/plastic.png', (error, image) => {
         map.addImage('/map-markers/plastic.png', image)
         resolve();
-      })
+      });
     }),
     new Promise((resolve, reject) => {
       map.loadImage('/map-markers/glass.png', (error, image) => {
         map.addImage('/map-markers/glass.png', image)
         resolve();
-      })
+      });
     }),
     new Promise((resolve, reject) => {
       map.loadImage('/map-markers/mixed.png', (error, image) => {
         map.addImage('/map-markers/mixed.png', image)
         resolve();
-      })
+      });
     }),
   ]).then(() => {
     map.addSource('allBins', {
@@ -56,10 +58,10 @@ map.on("load", async function() {
         "icon-size": 0.3
       }
     });
-  })
+  });
 });
 
-map.addControl(geoLocation);
+map.addControl(geoLocation, 'top-left');
 
 var mapboxClient = mapboxSdk({ accessToken: mapboxgl.accessToken });
 
@@ -79,7 +81,6 @@ async function getAddress(lat, long) {
     })
   return address
 }
-
 
 map.on('click', 'points', function(event) {
   // console.log(event)
@@ -130,7 +131,7 @@ function deleteBin(deleteId) {
 
 function startDirections(lng,lat) {
   console.log(lng,lat)
-  var directions = new MapboxDirections(({
+  directions = new MapboxDirections(({
     accessToken: mapboxgl.accessToken,
     interactive: false,
     zoom: 200,
@@ -140,6 +141,13 @@ function startDirections(lng,lat) {
   directions.setOrigin([geoLocation._lastKnownPosition.coords.longitude, geoLocation._lastKnownPosition.coords.latitude])
   directions.setDestination([lng, lat])
   map.addControl(directions);
+  $('#directions').remove();
+  $('#remove-directions').remove();
+  $("#container-with-buttons").append("<div id=\"remove-directions\"><button type=\"button\" class=\"btn btn-light map-button\" >Remove directions</button></div>");
+  $('#remove-directions').click(function(event) {
+    directions.removeRoutes();
+    $('#remove-directions').remove();
+  })
 }
 
 // Change the cursor to a pointer when the mouse is over the states layer.
@@ -152,13 +160,13 @@ map.on('mouseleave', 'states-layer', function () {
   map.getCanvas().style.cursor = '';
 });
 
-
 let addModeEnabled = false
 
 let addBinMarker;
 
-
 function toggleAddBins() {
+  if (directions) {directions.removeRoutes()}
+  $('#remove-directions').remove();
 
   if(addModeEnabled) {
     hideAddBox()
@@ -210,13 +218,6 @@ map.on('click', (event) => {
   }
 });
 
-// map.on('contextmenu', (event) => {
-//   console.log('contextmenu')
-//   if (addBox.style.display = 'block') {
-//     addBox.style.display = 'hidden'
-//   } else { addBox.style.display = 'block' }
-
-// })
 
 $(document).ready(function() {
   $("#submit-bin").click(function() {
@@ -226,6 +227,9 @@ $(document).ready(function() {
     $.ajax({
       type: "POST",
       url: `/api/bins`,
+      headers: {
+        Authorization: 'Token ' + $.cookie('Auth')
+      },
       contentType: 'application/json',
       data: JSON.stringify({
         bin: {
@@ -238,10 +242,22 @@ $(document).ready(function() {
     .done(function(result){
       refreshMapData()
       toggleAddBins()
-    })
-  })
+    });
+  });
 
   $('#add-toggle').click(function(event) {
-    toggleAddBins()
-  })
-})
+    $.ajax({
+      url: '/api/users/current',
+      type: 'get',
+      headers: {
+        Authorization: 'Token ' + $.cookie('Auth')
+      },
+      success: function(response, error) {
+        toggleAddBins();
+      },
+      error: function() {
+        window.location.replace('/login');
+      }
+    });
+  });
+});

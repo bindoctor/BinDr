@@ -4,7 +4,7 @@ const Bin = require('../models/bin');
 const BinType = require('../models/binType');
 const User = require('../models/user');
 const data = require('../tests/testData.js');
-
+const Users = mongoose.model('User');
 
 
 beforeAll(async () => {
