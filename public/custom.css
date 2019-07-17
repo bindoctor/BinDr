@@ -116,9 +116,9 @@ body {
 .buttons-on-map {
     position: absolute;
     z-index: 1;
-    right: 0.5rem;
-    top: 5.5rem;
     flex-direction: column;
+    padding-top: 8;
+    right: 0.5rem;
 }
 
 .map-button:hover {
