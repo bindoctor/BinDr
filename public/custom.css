@@ -133,9 +133,23 @@ body {
 }
 
 .custom-navbar {
-  background-color: #EBEEED
+  background-color: #76C1AA;
+
 }
 
 .margin-right {
   margin-right: 25px;
+}
+
+.fa.fa-ellipsis-v {
+  color:white;
+}
+
+.navbar-toggler {
+  border: 0;
+  margin-top: 11px;
+}
+
+.navbar-toggler:focus, .navbar-toggler:active {
+  outline: 0;
 }
