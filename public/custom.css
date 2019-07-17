@@ -145,11 +145,21 @@ body {
   color:white;
 }
 
+.fas.fa-hamburger {
+  color:white;
+}
+
 .navbar-toggler {
   border: 0;
-  margin-top: 11px;
+  /* margin-top: 11px; */
+  padding: 25px 0;
+  padding-right: 10px;
 }
 
 .navbar-toggler:focus, .navbar-toggler:active {
   outline: 0;
+}
+
+.navbar-header {
+  padding: 0
 }
