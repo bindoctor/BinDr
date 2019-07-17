@@ -61,14 +61,35 @@ map.on('load', async function () {
 
 map.addControl(geoLocation);
 
+
+
 map.on('click', 'points', function (event) {
   if (!addModeEnabled) {
     new mapboxgl.Popup()
     .setLngLat(event.lngLat)
-    .setHTML("<h3>" + event.features[0].properties.binTypeName + "</h3>" + "<p>" + event.lngLat + "</p>")
+    .setHTML(
+      `
+  <h3> ${event.features[0].properties.binTypeName} </h3>
+  <p>Longitude: ${event.lngLat.lng.toFixed(5)} <br> Latitude: ${event.lngLat.lat.toFixed(5)} </p>
+  <br>
+  <button type="button" class="btn btn-primary" id="directions" onclick="startDirections(${event.lngLat.lng.toFixed(5)},${event.lngLat.lat.toFixed(5)})">Directions</button>
+`
+    )
     .addTo(map);
   }
 });
+
+function startDirections(lng,lat) {
+  console.log(lng,lat)
+  var directions = new MapboxDirections(({
+    accessToken: mapboxgl.accessToken,
+    controls: {inputs: false},
+    profile: 'mapbox/walking'
+    }), 'top-left');
+  directions.setOrigin([geoLocation._lastKnownPosition.coords.longitude, geoLocation._lastKnownPosition.coords.latitude])
+  directions.setDestination([lng, lat])
+  map.addControl(directions);
+}
 
 // Change the cursor to a pointer when the mouse is over the states layer.
 map.on('mouseenter', 'states-layer', function () {
@@ -173,3 +194,8 @@ $(document).ready(function() {
     }
   })
 })
+
+
+
+  
+
