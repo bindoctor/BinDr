@@ -3,6 +3,7 @@ const mongoose = require("mongoose");
 const Bin = mongoose.model("Bin");
 const BinType = mongoose.model("BinType");
 
+
 router.get("/", (request, response) => {
   Bin.find({}, { geometry: 1, type: 1, _id: 0, properties: 1 })
     .populate("properties")
@@ -45,5 +46,28 @@ router.post("/", (request, response) => {
     };
   });
 });
+
+router.delete("/", (request, response) => {
+  lng = request.body.bin.lng
+  lat = request.body.bin.lat
+  console.log([lng, lat])
+
+  Bin.findOne({}, (err, result) => {
+    console.log(result)
+  })
+  
+  Bin.deleteMany({
+    geometry: {
+      type: 'Point',
+      coordinates: [lng, lat]
+    }
+  }, (err, numberRemoved) => {
+    if (numberRemoved.deletedCount === 0) {
+      response.status(409).json({ status: "No bins deleted" } ).send()
+    } else {
+      response.json({ status: "success" } ).send()
+    }
+  })
+})
 
 module.exports = router;

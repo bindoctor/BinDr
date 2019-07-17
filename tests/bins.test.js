@@ -54,3 +54,37 @@ describe("POST /", () => {
       .expect(422);
   })
 });
+
+describe('DELETE /', function() {
+  test("200 response when bin deleted", () => {
+    return api.delete("/api/bins")
+      .send({
+        bin: {
+          lng: -0.09943485260009766,
+          lat: 51.524992780414806,
+        }
+      })
+      .expect(200)
+  })
+
+  test("409 response when bin doesn't exist", () => {
+    return api.delete("/api/bins")
+      .send({
+        bin: {
+          lng: -0.1234,
+          lat: 51.5678,
+        }
+      })
+      .expect(409)
+  })
+
+  test("409 response when invalid query", () => {
+    return api.delete("/api/bins")
+      .send({
+        bin: {
+          hello: 'goodbye'
+        }
+      })
+      .expect(409)
+  })
+})
