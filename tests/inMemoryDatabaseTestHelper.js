@@ -27,14 +27,4 @@ beforeEach(async () => {
   await BinType.insertMany(data.binTypes);
   await Bin.insertMany(data.bins);
   await User.deleteMany({});
-
-  let user = {
-    user: {
-      email: "test@test.com",
-      password: "test123"
-    }
-  };
-  const finalUser = new Users(user.user);
-  finalUser.setPassword(user.user.password);
-  const userSaved = await finalUser.save();
 });
