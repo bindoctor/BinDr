@@ -111,14 +111,17 @@ let addBinMarker;
 
 
 function toggleAddBins() {
+
   if(addModeEnabled) {
     hideAddBox()
     hideAddMarker()
     addModeEnabled = false
+    $('#add-toggle').html('Add a bin')
   } else {
     showAddBox()
     showAddMarker()
     addModeEnabled = true
+    $('#add-toggle').html('Disable add mode')
   }
 }
 
@@ -175,7 +178,6 @@ $(document).ready(function() {
     $.ajax({
       type: "POST",
       url: `/api/bins`,
-      dataType: 'json',
       contentType: 'application/json',
       data: JSON.stringify({
         bin: {
@@ -190,12 +192,8 @@ $(document).ready(function() {
       toggleAddBins()
     })
   })
+
   $('#add-toggle').click(function(event) {
     toggleAddBins()
-    if(event.target.innerHTML === 'Add a bin') {
-      event.target.innerHTML = 'Disable add mode'
-    } else {
-      event.target.innerHTML ='Add a bin' 
-    }
   })
 })
