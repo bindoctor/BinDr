@@ -119,9 +119,12 @@ function startDirections(lng,lat) {
   directions.setOrigin([geoLocation._lastKnownPosition.coords.longitude, geoLocation._lastKnownPosition.coords.latitude])
   directions.setDestination([lng, lat])
   map.addControl(directions);
-  $("#container-with-buttons").append("<br><button type=\"button\" class=\"btn btn-light map-button\" id=\"remove-directions\">Remove directions</button>");
+  $('#directions').remove();
+  $('#remove-directions').remove();
+  $("#container-with-buttons").append("<div id=\"remove-directions\"><button type=\"button\" class=\"btn btn-light map-button\" >Remove directions</button></div>");
   $('#remove-directions').click(function(event) {
-    map.removeControl(directions)
+    directions.removeRoutes();
+    $('#remove-directions').remove();
   })
 }
 
@@ -142,6 +145,8 @@ let addBinMarker;
 
 
 function toggleAddBins() {
+  directions.removeRoutes();
+  $('#remove-directions').remove();
 
   if(addModeEnabled) {
     hideAddBox()
