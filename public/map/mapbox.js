@@ -84,16 +84,11 @@ async function getAddress(lat, long) {
 }
 
 map.on('click', 'points', function(event) {
-  // console.log(event)
   const clickedPoint = event.features[0]
-  console.log(clickedPoint)
-  // console.log(clickedPoint.geometry.coordinates)
-  console.log(event.lngLat)
   const binLng = clickedPoint.geometry.coordinates[0]
   const binLat = clickedPoint.geometry.coordinates[1]
   const binType = JSON.parse(clickedPoint.properties.binType).binTypeName
   const binId = clickedPoint.properties.binId
-  console.log(binId)
   if (!addModeEnabled) {
     getAddress(binLng, binLat).then((address) => {
       theBox = new mapboxgl.Popup()
@@ -150,7 +145,6 @@ function deleteBin(deleteId) {
 
 
 function startDirections(lng,lat) {
-  console.log(lng,lat)
   directions = new MapboxDirections(({
     accessToken: mapboxgl.accessToken,
     interactive: false,
