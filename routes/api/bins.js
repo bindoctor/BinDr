@@ -48,25 +48,24 @@ router.post("/", (request, response) => {
 });
 
 router.delete("/", (request, response) => {
-  lng = request.body.bin.lng
-  lat = request.body.bin.lat
-  console.log([lng, lat])
 
-  // Bin.findOne({geometry: {
-  //   type: 'Point',
-  //   coordinates: [-0.09634240078182188 - 51.52529864865096]
-  // }}, (err, result) => {
-  //   console.log(result)
-  // })
+  binId = request.body.bin.id
+  console.log('BIN ID IN DELETE')
+  console.log(request.body)
+  // console.log(binId)
+  Bin.findById(binId, (err, result) => {
+    console.log('FOUND BIN')
+
+    console.log(result)
+  })
 
 
   Bin.deleteMany({
-    geometry: {
-      type: 'Point',
-      coordinates: [lng, lat]
-    }
+    _id: binId
   }, (err, numberRemoved) => {
-    if (numberRemoved.deletedCount === 0) {
+    if(!numberRemoved) {
+      response.status(400).json({ status: "Invalid request" } ).send()
+    } else if (numberRemoved.deletedCount === 0) {
       response.status(409).json({ status: "No bins deleted" } ).send()
     } else {
       response.json({ status: "success" } ).send()
