@@ -48,17 +48,7 @@ router.post("/", (request, response) => {
 });
 
 router.delete("/", (request, response) => {
-
   binId = request.body.bin.id
-  console.log('BIN ID IN DELETE')
-  console.log(request.body)
-  // console.log(binId)
-  Bin.findById(binId, (err, result) => {
-    console.log('FOUND BIN')
-
-    console.log(result)
-  })
-
 
   Bin.deleteMany({
     _id: binId
