@@ -1,3 +1,5 @@
+let directions
+
 var map = new mapboxgl.Map({
   container: "map",
   style: "mapbox://styles/bindr/cjxyplq2c064h1cmxgpyefs28",
@@ -107,7 +109,7 @@ map.on('click', 'points', function(event) {
 
 function startDirections(lng,lat) {
   console.log(lng,lat)
-  var directions = new MapboxDirections(({
+  directions = new MapboxDirections(({
     accessToken: mapboxgl.accessToken,
     interactive: false,
     zoom: 200,
@@ -220,5 +222,8 @@ $(document).ready(function() {
 
   $('#add-toggle').click(function(event) {
     toggleAddBins()
+  })
+  $('#remove-directions').click(function(event) {
+    map.removeControl(directions)
   })
 })
