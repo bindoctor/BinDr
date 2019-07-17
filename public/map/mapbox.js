@@ -93,7 +93,7 @@ map.on('click', 'points', function(event) {
         .setLngLat(event.lngLat)
         .setHTML(
           `
-          <h3> ${event.features[0].properties.binTypeName} </h3>
+          <h3> ${type} </h3>
           <p>Longitude: ${event.lngLat.lng.toFixed(5)} <br> Latitude: ${event.lngLat.lat.toFixed(5)} </p>
           <br>
           <button type="button" class="btn btn-primary" id="directions" onclick="startDirections(${event.lngLat.lng.toFixed(5)},${event.lngLat.lat.toFixed(5)})">Directions</button>
