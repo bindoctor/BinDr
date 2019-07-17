@@ -17,36 +17,36 @@ map.on("load", async function() {
   geoLocation.trigger();
 
   Promise.all([
-    new Promise((resolve, reject) => { 
+    new Promise((resolve, reject) => {
       map.loadImage('/map-markers/paper.png', (error, image) => {
         map.addImage('/map-markers/paper.png', image)
         resolve();
-      }) 
+      })
     }),
-    new Promise((resolve, reject) => { 
+    new Promise((resolve, reject) => {
       map.loadImage('/map-markers/plastic.png', (error, image) => {
         map.addImage('/map-markers/plastic.png', image)
         resolve();
-      }) 
+      })
     }),
-    new Promise((resolve, reject) => { 
+    new Promise((resolve, reject) => {
       map.loadImage('/map-markers/glass.png', (error, image) => {
         map.addImage('/map-markers/glass.png', image)
         resolve();
-      }) 
+      })
     }),
-    new Promise((resolve, reject) => { 
+    new Promise((resolve, reject) => {
       map.loadImage('/map-markers/mixed.png', (error, image) => {
         map.addImage('/map-markers/mixed.png', image)
         resolve();
-      }) 
+      })
     }),
   ]).then(() => {
     map.addSource('allBins', {
       type: 'geojson',
       data: '/api/bins'
     });
-  
+
     map.addLayer({
       "id": "points",
       "type": "symbol",
@@ -81,24 +81,49 @@ async function getAddress(lat, long) {
 }
 
 
-map.on('click', 'points', function (event) {
+map.on('click', 'points', function(event) {
   if (!addModeEnabled) {
-    type = event.features[0].properties.binTypeName
+    new mapboxgl.Popup()
+      .setLngLat(event.lngLat)
+
+      .addTo(map);
+    type = event.features[0].properties.binTypeName;
     getAddress(event.lngLat.lng, event.lngLat.lat).then((address) => {
       new mapboxgl.Popup()
-      .setLngLat(event.lngLat)  
-      .setHTML("<h3>" + type + "</h3>" + "<h4> Address </h4>" + "<p>" + address + "</p>")
-      .addTo(map);
-    })
+        .setLngLat(event.lngLat)
+        .setHTML(
+          `
+          <h3> ${type} </h3>
+          <p>Longitude: ${event.lngLat.lng.toFixed(5)} <br> Latitude: ${event.lngLat.lat.toFixed(5)} </p>
+          <br>
+          <button type="button" class="btn btn-primary" id="directions" onclick="startDirections(${event.lngLat.lng.toFixed(5)},${event.lngLat.lat.toFixed(5)})">Directions</button>
+           `,
+        )
+        .addTo(map);
+    });
   }
 });
 
+
+function startDirections(lng,lat) {
+  console.log(lng,lat)
+  var directions = new MapboxDirections(({
+    accessToken: mapboxgl.accessToken,
+    interactive: false,
+    zoom: 200,
+    controls: {inputs: false, instructions: false},
+    profile: 'mapbox/walking'
+    }), 'top-left');
+  directions.setOrigin([geoLocation._lastKnownPosition.coords.longitude, geoLocation._lastKnownPosition.coords.latitude])
+  directions.setDestination([lng, lat])
+  map.addControl(directions);
+}
 
 // Change the cursor to a pointer when the mouse is over the states layer.
 map.on('mouseenter', 'states-layer', function () {
   map.getCanvas().style.cursor = 'pointer';
 });
- 
+
 // Change it back to a pointer when it leaves.
 map.on('mouseleave', 'states-layer', function () {
   map.getCanvas().style.cursor = '';
@@ -159,7 +184,7 @@ function refreshMapData() {
 map.on('click', (event) => {
   if(addModeEnabled) {
     addBinMarker.setLngLat(event.lngLat)
-  } 
+  }
 });
 
 // map.on('contextmenu', (event) => {
