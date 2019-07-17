@@ -141,7 +141,7 @@ let addModeEnabled = false
 let addBinMarker;
 
 function toggleAddBins() {
-  directions.removeRoutes();
+  if (directions) {directions.removeRoutes()}
   $('#remove-directions').remove();
 
   if(addModeEnabled) {
@@ -194,13 +194,6 @@ map.on('click', (event) => {
   }
 });
 
-// map.on('contextmenu', (event) => {
-//   console.log('contextmenu')
-//   if (addBox.style.display = 'block') {
-//     addBox.style.display = 'hidden'
-//   } else { addBox.style.display = 'block' }
-
-// })
 
 $(document).ready(function() {
   $("#submit-bin").click(function() {
