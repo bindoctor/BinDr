@@ -23,12 +23,22 @@ describe('/api/users', () => {
   test('accepts user credentials', () => {
     return api.post('/api/users')
         .send({user: {
-          email: 'user@test.com',
+          email: 'admin@test.com',
           password: 'password123',
         }})
         .set('Accept', 'application/json')
         .expect('Content-Type', /json/)
         .expect(200);
+  });
+
+  test('responds with 409 when duplicate email given', () => {
+    return api.post('/api/users')
+      .send({user: {
+          email: 'user@test.com',
+          password: 'password123',
+        }})
+      .set('Accept', 'application/json')
+      .expect(409);
   });
   test('reports 422 status code when no email specified', () => {
     return api.post('/api/users')
