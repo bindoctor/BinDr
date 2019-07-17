@@ -34,7 +34,7 @@ exports.binTypes = [plastic, glass, mixed, paper];
 exports.bins = [
   {
     type: 'Feature',
-    properties: plastic._id,
+    properties: {binType: plastic._id},
     geometry: {
       type: 'Point',
       coordinates: [
@@ -45,7 +45,7 @@ exports.bins = [
   },
   {
     type: 'Feature',
-    properties: mixed._id,
+    properties: {binType: mixed._id},
     geometry: {
       type: 'Point',
       coordinates: [
@@ -56,7 +56,7 @@ exports.bins = [
   },
   {
     type: 'Feature',
-    properties: glass._id,
+    properties: {binType: glass._id},
     geometry: {
       type: 'Point',
       coordinates: [
@@ -67,7 +67,7 @@ exports.bins = [
   },
   {
     type: 'Feature',
-    properties: paper._id,
+    properties: {binType: paper._id},
     geometry: {
       type: 'Point',
       coordinates: [
@@ -78,7 +78,7 @@ exports.bins = [
   },
   {
     type: 'Feature',
-    properties: paper._id,
+    properties: {binType: paper._id},
     geometry: {
       type: 'Point',
       coordinates: [
@@ -89,7 +89,7 @@ exports.bins = [
   },
   {
     type: 'Feature',
-    properties: plastic._id,
+    properties: {binType: plastic._id},
     geometry: {
       type: 'Point',
       coordinates: [
@@ -100,7 +100,7 @@ exports.bins = [
   },
   {
     type: 'Feature',
-    properties: plastic._id,
+    properties: {binType: plastic._id},
     geometry: {
       type: 'Point',
       coordinates: [
@@ -111,7 +111,7 @@ exports.bins = [
   },
   {
     type: 'Feature',
-    properties: plastic._id,
+    properties: {binType: plastic._id},
     geometry: {
       type: 'Point',
       coordinates: [
@@ -122,7 +122,7 @@ exports.bins = [
   },
   {
     type: 'Feature',
-    properties: glass._id,
+    properties: {binType: glass._id},
     geometry: {
       type: 'Point',
       coordinates: [
@@ -133,7 +133,7 @@ exports.bins = [
   },
   {
     type: 'Feature',
-    properties: mixed._id,
+    properties: {binType: mixed._id},
     geometry: {
       type: 'Point',
       coordinates: [
@@ -144,7 +144,7 @@ exports.bins = [
   },
   {
     type: 'Feature',
-    properties: mixed._id,
+    properties: {binType: mixed._id},
     geometry: {
       type: 'Point',
       coordinates: [
@@ -155,7 +155,7 @@ exports.bins = [
   },
   {
     type: 'Feature',
-    properties: mixed._id,
+    properties: {binType: mixed._id},
     geometry: {
       type: 'Point',
       coordinates: [
@@ -166,7 +166,7 @@ exports.bins = [
   },
   {
     type: 'Feature',
-    properties: mixed._id,
+    properties: {binType: mixed._id},
     geometry: {
       type: 'Point',
       coordinates: [
@@ -177,7 +177,7 @@ exports.bins = [
   },
   {
     type: 'Feature',
-    properties: glass._id,
+    properties: {binType: glass._id},
     geometry: {
       type: 'Point',
       coordinates: [
@@ -188,7 +188,7 @@ exports.bins = [
   },
   {
     type: 'Feature',
-    properties: mixed._id,
+    properties: {binType: mixed._id},
     geometry: {
       type: 'Point',
       coordinates: [
@@ -199,7 +199,7 @@ exports.bins = [
   },
   {
     type: 'Feature',
-    properties: glass._id,
+    properties: {binType: glass._id},
     geometry: {
       type: 'Point',
       coordinates: [
@@ -210,7 +210,7 @@ exports.bins = [
   },
   {
     type: 'Feature',
-    properties: mixed._id,
+    properties: {binType: mixed._id},
     geometry: {
       type: 'Point',
       coordinates: [
@@ -221,7 +221,7 @@ exports.bins = [
   },
   {
     type: 'Feature',
-    properties: mixed._id,
+    properties: {binType: mixed._id},
     geometry: {
       type: 'Point',
       coordinates: [
@@ -232,7 +232,7 @@ exports.bins = [
   },
   {
     type: 'Feature',
-    properties: mixed._id,
+    properties: {binType: mixed._id},
     geometry: {
       type: 'Point',
       coordinates: [
@@ -243,7 +243,7 @@ exports.bins = [
   },
   {
     type: 'Feature',
-    properties: plastic._id,
+    properties: {binType: plastic._id},
     geometry: {
       type: 'Point',
       coordinates: [

@@ -14,6 +14,7 @@
     <link rel="stylesheet" href="/custom.css">
     <script src='https://api.mapbox.com/mapbox-gl-js/v1.0.0/mapbox-gl.js'></script>
     <link href='https://api.mapbox.com/mapbox-gl-js/v1.0.0/mapbox-gl.css' rel='stylesheet'/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <script src="https://unpkg.com/@mapbox/mapbox-sdk/umd/mapbox-sdk.min.js"></script>
     <script>
         mapboxgl.accessToken = '{{mapboxKey}}';
@@ -25,14 +26,14 @@
     <title>binDr</title>
 </head>
 <body>
-<nav class="navbar navbar-default navbar-fixed-top navbar-expand-lg navbar-light custom-navbar">
+<nav class="navbar navbar-default navbar-fixed-top navbar-expand-lg navbar-dark custom-navbar">
     <div class="container-fluid">
         <div class="navbar-header">
             <a class="navbar-brand" href="/"><img src="/logo.png" alt="BinDr"></a>
             <button class="navbar-toggler float-xs-right" type="button" data-toggle="collapse"
                     data-target="#navbarNavMine"
                     aria-controls="navbarNavMine" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
+              <span class="fa fa-ellipsis-v fa-lg"></i>
             </button>
         </div>
         <div class="collapse navbar-collapse" id="navbarNavMine">
@@ -40,7 +41,7 @@
                 <li class="nav-item active">
                     <a class="nav-link" href="/">Home <span class="sr-only">(current)</span></a>
                 </li>
-                <li class="nav-item">
+                <li class="nav-item active">
                     <a class="nav-link" href="/login">Log In or Register</a>
                 </li>
                 <li class="nav-item" id="logout-option">

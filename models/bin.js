@@ -8,7 +8,9 @@ const binSchema = new mongoose.Schema({
     required: true,
     default: "Feature"
   },
-  properties: { type: mongoose.Schema.Types.ObjectId, ref: "BinType" },
+  properties: { 
+    binType: { type: mongoose.Schema.Types.ObjectId, ref: "BinType" }
+  },
   geometry: {
     type: {
       type: String,
@@ -22,6 +24,13 @@ const binSchema = new mongoose.Schema({
     }
   }
 });
+
+binSchema.virtual('properties.binId').get(function() {
+  return this._id.toHexString();
+})
+
+binSchema.set('toJSON', {virtuals: true})
+binSchema.set('toObject', {virtuals: true})
 
 
 module.exports = mongoose.model("Bin", binSchema);
