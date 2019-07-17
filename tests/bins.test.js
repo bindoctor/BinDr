@@ -2,6 +2,7 @@ const request = require("supertest");
 const app = require("../app");
 const GJV = require('geojson-validation');
 const api = request(app);
+const Bin = require('../models/bin')
 
 require('./inMemoryDatabaseTestHelper');
 
@@ -74,3 +75,59 @@ describe("POST /", () => {
       .expect(422);
   })
 });
+
+describe('DELETE /', function() {
+
+  let addedId
+
+  beforeEach((done) => {
+   Bin.findOne({}, (err, result) => {
+      addedId = result._id
+      done()
+    })
+  });
+
+  test("200 response when bin deleted", () => {
+
+    return api.delete("/api/bins")
+      .set("Authorization", `Token ${token}`)
+      .send({
+        bin: {
+          id: addedId
+        }
+      })
+      .expect(200)
+  })
+
+  test("400 response when bin doesn't exist", () => {
+    return api.delete("/api/bins")
+      .set("Authorization", `Token ${token}`)
+      .send({
+        bin: {
+          id: 'nope'
+        }
+      })
+      .expect(400)
+  })
+
+  test("409 response when invalid query", () => {
+    return api.delete("/api/bins")
+      .set("Authorization", `Token ${token}`)
+      .send({
+        bin: {
+          hello: 'goodbye'
+        }
+      })
+      .expect(409)
+  })
+
+  test("401 response when unauthorised", () => {
+    return api.delete("/api/bins")
+      .send({
+        bin: {
+          id: addedId
+        }
+      })
+      .expect(401)
+  })
+})
