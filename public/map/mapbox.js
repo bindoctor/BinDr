@@ -81,26 +81,26 @@ async function getAddress(lat, long) {
 }
 
 
-map.on('click', 'points', function (event) {
+map.on('click', 'points', function(event) {
   if (!addModeEnabled) {
     new mapboxgl.Popup()
-    .setLngLat(event.lngLat)
+      .setLngLat(event.lngLat)
 
-    .addTo(map);
-    type = event.features[0].properties.binTypeName
+      .addTo(map);
+    type = event.features[0].properties.binTypeName;
     getAddress(event.lngLat.lng, event.lngLat.lat).then((address) => {
       new mapboxgl.Popup()
-      .setLngLat(event.lngLat)
-      .setHTML(
-        `
-  <h3> ${event.features[0].properties.binTypeName} </h3>
-  <p>Longitude: ${event.lngLat.lng.toFixed(5)} <br> Latitude: ${event.lngLat.lat.toFixed(5)} </p>
-  <br>
-  <button type="button" class="btn btn-primary" id="directions" onclick="startDirections(${event.lngLat.lng.toFixed(5)},${event.lngLat.lat.toFixed(5)})">Directions</button>
-`
-      )
-      .addTo(map);
-    })
+        .setLngLat(event.lngLat)
+        .setHTML(
+          `
+          <h3> ${event.features[0].properties.binTypeName} </h3>
+          <p>Longitude: ${event.lngLat.lng.toFixed(5)} <br> Latitude: ${event.lngLat.lat.toFixed(5)} </p>
+          <br>
+          <button type="button" class="btn btn-primary" id="directions" onclick="startDirections(${event.lngLat.lng.toFixed(5)},${event.lngLat.lat.toFixed(5)})">Directions</button>
+           `,
+        )
+        .addTo(map);
+    });
   }
 });
 
