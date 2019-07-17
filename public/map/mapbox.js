@@ -1,3 +1,5 @@
+let directions
+
 var map = new mapboxgl.Map({
   container: "map",
   style: "mapbox://styles/bindr/cjxyplq2c064h1cmxgpyefs28",
@@ -59,7 +61,7 @@ map.on("load", async function() {
   });
 });
 
-map.addControl(geoLocation);
+map.addControl(geoLocation, 'top-left');
 
 var mapboxClient = mapboxSdk({ accessToken: mapboxgl.accessToken });
 
@@ -105,7 +107,7 @@ map.on('click', 'points', function(event) {
 
 function startDirections(lng,lat) {
   console.log(lng,lat)
-  var directions = new MapboxDirections(({
+  directions = new MapboxDirections(({
     accessToken: mapboxgl.accessToken,
     interactive: false,
     zoom: 200,
@@ -115,6 +117,13 @@ function startDirections(lng,lat) {
   directions.setOrigin([geoLocation._lastKnownPosition.coords.longitude, geoLocation._lastKnownPosition.coords.latitude])
   directions.setDestination([lng, lat])
   map.addControl(directions);
+  $('#directions').remove();
+  $('#remove-directions').remove();
+  $("#container-with-buttons").append("<div id=\"remove-directions\"><button type=\"button\" class=\"btn btn-light map-button\" >Remove directions</button></div>");
+  $('#remove-directions').click(function(event) {
+    directions.removeRoutes();
+    $('#remove-directions').remove();
+  })
 }
 
 // Change the cursor to a pointer when the mouse is over the states layer.
@@ -132,6 +141,8 @@ let addModeEnabled = false
 let addBinMarker;
 
 function toggleAddBins() {
+  if (directions) {directions.removeRoutes()}
+  $('#remove-directions').remove();
 
   if(addModeEnabled) {
     hideAddBox()
@@ -183,13 +194,6 @@ map.on('click', (event) => {
   }
 });
 
-// map.on('contextmenu', (event) => {
-//   console.log('contextmenu')
-//   if (addBox.style.display = 'block') {
-//     addBox.style.display = 'hidden'
-//   } else { addBox.style.display = 'block' }
-
-// })
 
 $(document).ready(function() {
   $("#submit-bin").click(function() {
