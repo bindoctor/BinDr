@@ -28,6 +28,12 @@ describe('about page loads', () => {
   });
 });
 
+describe('login page loads', () => {
+  test('shows login page', () => {
+    return api.get('/login').expect(200);
+  });
+});
+
 describe('/api/sample-bins', () => {
   test('shows /api/sample-bins page', () => {
     return api.get('/api/sample-bins').expect(200);
