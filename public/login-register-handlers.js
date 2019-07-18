@@ -17,7 +17,7 @@ $(document).ready(function () {
           window.location.replace('/');
         },
         error: function() {
-          console.log("HELLO GEOFF IT WAS ERROR")
+          console.log("OOOPS THERE WAS AN ERROR")
         }
       });
     });
@@ -39,9 +39,16 @@ $(document).ready(function () {
           window.location.replace('/login');
         },
         error: function() {
-          console.log("HELLO GEOFF IT WAS ERROR")
+          console.log("OOOPS THERE WAS AN ERROR");
         }
       });
     });
+  });
+
+  $(function () {
+    $('#logout').on('click', function(event) {
+      console.log('logout');
+      $.cookie("Auth", "", -1);
+    })
   });
 });
